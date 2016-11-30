@@ -1,7 +1,9 @@
 package com.example.bxh.sayhello;
 
-import android.os.SystemClock;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bxh on 11/13/16.
@@ -73,5 +75,57 @@ public class TestAlgorithms {
             Log.d(TAG, "onQueryTextSubmit s=" + s);
         }
     }
+    /*************************************************/
+    /*********************** start *******************/
+    /*************************************************/
+    /**
+     * 输入一个链表，从尾到头打印链表每个节点的值。
+     */
+    public static ArrayList<Integer> listNodes = new ArrayList<>();
+    public static ArrayList<Integer> printListNode(ListNode listNode) {
 
+        if (listNode != null) {
+            printListNode(listNode.next);
+            listNodes.add(listNode.val);
+            System.out.println("printListNode listNode.val ="+listNode.val);
+        }
+        for (int i = 0; i < listNodes.size(); i++) {
+            System.out.println("printListNode="+listNodes.get(i)+"--size="+listNodes.size());
+        }
+
+        return listNodes;
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        public ListNode(int val) {
+            this.val = val;
+        }
+
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public static void testPrintNodeListFromTail2Head(){
+        //construct data
+        List<ListNode> list = new ArrayList<ListNode>();
+        ListNode firstNode = new ListNode(0);
+        list.add(firstNode);
+        for (int i = 1; i < 20; i++) {
+            ListNode newNode = new ListNode(i);
+            System.out.println("testPrintNodeListFromTail2Head listSize:" + list.size()+"--i-1="+(i-1));
+            list.get(i-1).next = newNode;
+            list.add(newNode);
+        }
+
+        printListNode(firstNode);
+
+    }
+    /*************************************************/
+    /***********************  end ********************/
+    /*************************************************/
 }
