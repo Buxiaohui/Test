@@ -13,7 +13,8 @@ public class MainActivity extends Activity {
         //testNestedInit();
         //testAlgorithms();
         //test();
-        TestAlgorithms.testPrintNodeListFromTail2Head();
+        //TestAlgorithms.testPrintNodeListFromTail2Head();
+        Tree.test();
     }
 
 
