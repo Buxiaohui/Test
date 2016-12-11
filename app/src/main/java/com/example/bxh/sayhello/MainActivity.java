@@ -14,7 +14,8 @@ public class MainActivity extends Activity {
         //testAlgorithms();
         //test();
         //TestAlgorithms.testPrintNodeListFromTail2Head();
-        Tree.test();
+        //Tree.test();
+        StackToQueue.test();
     }
 
 
