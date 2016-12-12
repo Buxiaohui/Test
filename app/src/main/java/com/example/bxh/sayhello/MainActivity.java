@@ -15,9 +15,17 @@ public class MainActivity extends Activity {
         //test();
         //TestAlgorithms.testPrintNodeListFromTail2Head();
         //Tree.test();
-        StackToQueue.test();
-    }
+        //StackToQueue.test();
+        //TestAlgorithms.string2String();
+        testFibonacci();
 
+    }
+    private void testFibonacci(){
+        for (int i = 0; i < 10; i++) {
+            System.out.println("fibonacci i="+i+"--value="+TestAlgorithms.fibonacci(i));
+        }
+
+    }
 
     private void testClassInit() {
         System.out.println("classTest -----我是start分割线----");
