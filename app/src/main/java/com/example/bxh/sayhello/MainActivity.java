@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
     private void testFibonacci(){
         for (int i = 0; i < 10; i++) {
             System.out.println("fibonacci i="+i+"--value="+TestAlgorithms.fibonacci(i));
+            System.out.println("fibonacci02 i="+i+"--value="+TestAlgorithms.fibonacci02(i));
         }
 
     }

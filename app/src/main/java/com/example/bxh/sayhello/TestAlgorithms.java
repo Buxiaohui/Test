@@ -154,8 +154,33 @@ public class TestAlgorithms {
         }
 
     }
+
+    public static int fibonacci02(int n) {
+
+        if (n <= 0) {
+            return -1;
+        } else if (n == 1 || n == 2) {
+            return 1;
+        } else {
+            int start = 3;
+            int f = 1;//第1位
+            int b = 1;//第2位
+            while (start++ <= n) {
+                //每次循环都把b和f右移一位(根据前一次结果计算新的值)，最终b就是我们要的值
+                //当n=3时，只需要执行1次
+                //当n=4时，移动1次以后要再移动1次
+                //当n=5时，在上面的基础上再移动1次
+                b = b + f;//b 变成它右边那一位
+                f = b - f;//f 变成b之前的值
+            }
+            return b;
+        }
+
+    }
     /*************************************************/
-    /***********************  end ********************/
+    /***********************
+     * end
+     ********************/
 
     public void test01() {
         Log.d(TAG, "onQueryTextSubmit Integer.toBinaryString=" + Integer.toBinaryString(10));
