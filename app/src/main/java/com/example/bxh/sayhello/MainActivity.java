@@ -17,7 +17,11 @@ public class MainActivity extends Activity {
         //Tree.test();
         //StackToQueue.test();
         //TestAlgorithms.string2String();
-        testFibonacci();
+        //testFibonacci();
+        //PlaneLinePointsNum.testPoints();
+        //TestAlgorithms.getNumOfOneInBinery();
+        //TestAlgorithms.findSpecialNum();
+        TestAlgorithms.testGetExponentOfNum01();
 
     }
     private void testFibonacci(){

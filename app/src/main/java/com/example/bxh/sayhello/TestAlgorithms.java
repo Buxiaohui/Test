@@ -4,10 +4,12 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by bxh on 11/13/16.
@@ -177,10 +179,139 @@ public class TestAlgorithms {
         }
 
     }
-    /*************************************************/
-    /***********************
-     * end
-     ********************/
+
+    /**
+     * 二进制中1的个数
+     */
+
+    public static void getNumOfOneInBinery() {
+        int targetIntValue0 = 10;//1010
+        int targetIntValue1 = 11;//1011
+        int targetIntValue2 = 13;//1110
+        getOneNum(targetIntValue0);
+        getOneNum(targetIntValue1);
+        getOneNum(targetIntValue2);
+
+    }
+
+    public static void getOneNum(int target) {
+        int origin = target;
+        int count = 0;
+        while (target > 0) {
+            if ((target & 1) == 1) {
+                count++;
+            }
+            target = target >> 1;
+        }
+        System.out.println("getNumOfOneInBinery target=" + origin + "--num = " + count);
+    }
+
+    /**
+     * Given an array of integers, every element appears three times except for one. Find that single one.
+     */
+    public static void findSpecialNum() {
+        //构造一个符合条件的数组
+        //产生diffNum个不同的数字
+        int diffNum = 4;
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            int x = (int) (Math.random() * 100);
+            if (!list.contains(x)) {
+                list.add(x);
+            }
+            if (list.size() == diffNum) {
+                break;
+            }
+        }
+        ArrayList<Integer> list0 = new ArrayList<>();
+        int index = (int) (Math.random() * diffNum);
+        for (int i = 0; i < diffNum; i++) {
+            list0.add(list.get(i));
+            if (i != index) {
+                list0.add(list.get(i));
+                list0.add(list.get(i));
+            }
+        }
+
+        Collections.shuffle(list0);
+        Integer[] array = list0.toArray(new Integer[list0.size()]);
+
+        for (int i = 0; i < array.length; i++) {
+            //打印出构造的无序数组
+            System.out.println("findSpecialNum--" + array[i]);
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            int count = 0;
+            int x = array[i];
+            for (int j = 0; j < array.length; j++) {
+                if (array[j] == x) {
+                    count++;
+                }
+
+            }
+            if (count >= 3) {
+                continue;
+            } else {
+                System.out.println("findSpecialNum--is=" + array[i]);
+            }
+        }
+
+
+    }
+
+    /**
+     * 给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
+     */
+    public static void testGetExponentOfNum() {
+
+        double base = Math.random();
+        int exponent = new Random().nextInt(5);
+        System.out.println("testGetExponentOfNum--base=" + base + "--exponent=" + exponent);
+        if (exponent == 0) {
+            System.out.println("testGetExponentOfNum--0--result=" + 1);
+        } else if (exponent == 1) {
+            System.out.println("testGetExponentOfNum--1--result=" + base);
+        } else if (exponent > 1) {
+            double num = base;
+            for (int i = 2; i <= exponent; i++) {
+                num = num * base;
+            }
+            System.out.println("testGetExponentOfNum-->1--result=" + num);
+        } else {
+            System.out.println("testGetExponentOfNum error");
+        }
+        System.out.println("testGetExponentOfNum use Api result=" + Math.pow(base, exponent));
+    }
+
+    /**
+     * 给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
+     */
+    public static void testGetExponentOfNum01() {
+        double base = Math.random() * (new Random().nextInt(1) > 0 ? 1 : -1);
+        int exponent = new Random().nextInt(5) * (new Random().nextInt(1) > 0 ? 1 : -1);
+        double result = 1;
+        System.out.println("testGetExponentOfNum--base=" + base + "--exponent=" + exponent);
+        if (exponent == 0) {
+            System.out.println("testGetExponentOfNum--[=0]--result=" + 1);
+        } else if (exponent > 0) {
+            result = base;
+            for (int i = 2; i <= exponent; i++) {
+                result = result * base;
+            }
+            System.out.println("testGetExponentOfNum--[>0]--result=" + result);
+        } else {
+            result = base;
+            for (int i = 2; i <= Math.abs(exponent); i++) {
+                result = result * base;
+            }
+            result = 1 / result;
+            System.out.println("testGetExponentOfNum--[<0]--result=" + result);
+        }
+
+        System.out.println("testGetExponentOfNum use Api result=" + Math.pow(base, exponent));
+        System.out.println("testGetExponentOfNum==========");
+    }
 
     public void test01() {
         Log.d(TAG, "onQueryTextSubmit Integer.toBinaryString=" + Integer.toBinaryString(10));
@@ -204,4 +335,5 @@ public class TestAlgorithms {
             this.next = next;
         }
     }
+
 }
