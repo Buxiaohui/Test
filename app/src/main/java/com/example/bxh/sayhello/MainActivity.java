@@ -21,7 +21,8 @@ public class MainActivity extends Activity {
         //PlaneLinePointsNum.testPoints();
         //TestAlgorithms.getNumOfOneInBinery();
         //TestAlgorithms.findSpecialNum();
-        TestAlgorithms.testGetExponentOfNum01();
+        //TestAlgorithms.testGetExponentOfNum01();
+        TestAlgorithms.testGetAdd();
 
     }
     private void testFibonacci(){

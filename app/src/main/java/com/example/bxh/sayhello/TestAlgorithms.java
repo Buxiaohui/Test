@@ -336,4 +336,40 @@ public class TestAlgorithms {
         }
     }
 
+    /**
+     * 不使用 +，-，* ,/ 计算两个整数的和
+     * */
+    public  static void testGetAdd(){
+        int a = 5;//101
+        int b = 7;//111
+
+        while (b!=0){
+            int t = a^b;
+            System.out.println("testGetAdd a^b binary="+Integer.toBinaryString(t));
+            b = (a&b)<<1;
+            System.out.println("testGetAdd (a&b)<<1 binary="+Integer.toBinaryString(b));
+            a = t;
+        }
+        /**
+         * 1.这一步是通过'异或运算'计算每一位相加后的值，不算进位。a^b
+         * 101^111 即:
+         * 101
+         * 111
+         * ----
+         * 010
+         * *******************
+         * 2.得到进位 a&b<<1
+         * 101&111 即:
+         * 101
+         * 111
+         * ---
+         * 101
+         * 计算出结果是对应位相加后需要进位到高位的值，需要左移动一位，以便加到高位上去
+         * 101<<1 = 1010
+         * ********************
+         * 3.然后把两个数字再加一起就是'和'，但是相加过程还会有进位，于是循环相加过程即第一步与第二步，直到没有进位
+         * （这一步其实就是递归的思路，还是两个数字相加）
+         * */
+
+    }
 }
