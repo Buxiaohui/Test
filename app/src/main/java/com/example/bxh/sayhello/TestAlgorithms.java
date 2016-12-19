@@ -313,41 +313,18 @@ public class TestAlgorithms {
         System.out.println("testGetExponentOfNum==========");
     }
 
-    public void test01() {
-        Log.d(TAG, "onQueryTextSubmit Integer.toBinaryString=" + Integer.toBinaryString(10));
-        String s = "";
-        for (int n = 10; n > 0; n /= 2) {
-            s = (n % 2) + s;
-            Log.d(TAG, "onQueryTextSubmit s=" + s);
-        }
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        public ListNode(int val) {
-            this.val = val;
-        }
-
-        public ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
     /**
      * 不使用 +，-，* ,/ 计算两个整数的和
-     * */
-    public  static void testGetAdd(){
+     */
+    public static void testGetAdd() {
         int a = 5;//101
         int b = 7;//111
 
-        while (b!=0){
-            int t = a^b;
-            System.out.println("testGetAdd a^b binary="+Integer.toBinaryString(t));
-            b = (a&b)<<1;
-            System.out.println("testGetAdd (a&b)<<1 binary="+Integer.toBinaryString(b));
+        while (b != 0) {
+            int t = a ^ b;
+            System.out.println("testGetAdd a^b binary=" + Integer.toBinaryString(t));
+            b = (a & b) << 1;
+            System.out.println("testGetAdd (a&b)<<1 binary=" + Integer.toBinaryString(b));
             a = t;
         }
         /**
@@ -372,4 +349,84 @@ public class TestAlgorithms {
          * */
 
     }
+
+    /**
+     * 输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，
+     * 例如，如果输入如下矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+     * 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
+     */
+
+    public static void printMatrix() {
+        int[][] m = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16},
+        };
+        ArrayList<Integer> list = new ArrayList<>();
+        int x = m[0].length;//列 数
+        int y = m.length;//行 数
+        int left = 0;//左边界，包含
+        int top = 0;//上边界，包含
+        int right = x;//右边界，不包含
+        int bottom = y;//下边界，不包含
+        while (left <= right && top <= bottom) {
+            //打印上边的行，行号是top，范围是[0,bottom-1]
+            for (int j = left; j < right; j++) {
+                //行号不变，列号变，列号介于left与right之间
+                System.out.println("printMatrix--" + m[top][j]);
+            }
+            //打印右边面的行，列号是right，范围是[0,right-1]
+            for (int j = top + 1; j < bottom; j++) {
+                //列号不变，行号变，由于上面打印了右上角的元素，要排除这个元素，所以top+1
+                System.out.println("printMatrix--" + m[j][right - 1]);
+            }
+
+            //打印下边的行
+            for (int j = right - 2; j >= left; j--) {
+                //行号不变，列号变，由于前面打印了右下角的元素，打印下边元素时，排除这个元素，所以right-1-1
+                System.out.println("printMatrix--" + m[bottom - 1][j]);
+            }
+
+            //打印左边的行
+            for (int j = bottom - 2; j > top; j--) {
+                //列号不变，行号变，由于左上角，左下角都已经打印了，需要排除这两个元素，所以bottom-1-1,j>top
+                System.out.println("printMatrix--" + m[j][left]);
+            }
+            //打印了'第1圈'，再打印'第2圈'
+            //top向下移动一行
+            top++;
+            //right向左移动一行
+            right--;
+            //bottom向上移动一行
+            bottom--;
+            //left向右移动一行
+            left++;
+        }
+
+    }
+
+    public void test01() {
+        Log.d(TAG, "onQueryTextSubmit Integer.toBinaryString=" + Integer.toBinaryString(10));
+        String s = "";
+        for (int n = 10; n > 0; n /= 2) {
+            s = (n % 2) + s;
+            Log.d(TAG, "onQueryTextSubmit s=" + s);
+        }
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        public ListNode(int val) {
+            this.val = val;
+        }
+
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
 }

@@ -22,7 +22,8 @@ public class MainActivity extends Activity {
         //TestAlgorithms.getNumOfOneInBinery();
         //TestAlgorithms.findSpecialNum();
         //TestAlgorithms.testGetExponentOfNum01();
-        TestAlgorithms.testGetAdd();
+        //TestAlgorithms.testGetAdd();
+        TestAlgorithms.printMatrix();
 
     }
     private void testFibonacci(){
