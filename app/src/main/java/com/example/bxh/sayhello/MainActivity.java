@@ -23,7 +23,8 @@ public class MainActivity extends Activity {
         //TestAlgorithms.findSpecialNum();
         //TestAlgorithms.testGetExponentOfNum01();
         //TestAlgorithms.testGetAdd();
-        TestAlgorithms.printMatrix();
+        //TestAlgorithms.printMatrix();
+        MergeNodelist.testMergeList();
 
     }
     private void testFibonacci(){

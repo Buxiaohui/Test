@@ -80,7 +80,7 @@ public class TestAlgorithms {
     /*********************** start *******************/
     /*************************************************/
 
-    public static ArrayList<Integer> printListNode(ListNode listNode) {
+    public static ArrayList<Integer> printListNode(Node listNode) {
 
         if (listNode != null) {
             printListNode(listNode.next);
@@ -96,11 +96,11 @@ public class TestAlgorithms {
 
     public static void testPrintNodeListFromTail2Head() {
         //construct data
-        List<ListNode> list = new ArrayList<ListNode>();
-        ListNode firstNode = new ListNode(0);
+        List<Node> list = new ArrayList<Node>();
+        Node firstNode = new Node(0);
         list.add(firstNode);
         for (int i = 1; i < 20; i++) {
-            ListNode newNode = new ListNode(i);
+            Node newNode = new Node(i);
             System.out.println("testPrintNodeListFromTail2Head listSize:" + list.size() + "--i-1=" + (i - 1));
             list.get(i - 1).next = newNode;
             list.add(newNode);
@@ -406,27 +406,32 @@ public class TestAlgorithms {
 
     }
 
-    public void test01() {
-        Log.d(TAG, "onQueryTextSubmit Integer.toBinaryString=" + Integer.toBinaryString(10));
-        String s = "";
-        for (int n = 10; n > 0; n /= 2) {
-            s = (n % 2) + s;
-            Log.d(TAG, "onQueryTextSubmit s=" + s);
-        }
-    }
 
-    public static class ListNode {
-        int val;
-        ListNode next;
+    /**
+     * 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+     * 例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。
+     * 由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+     */
+    public int findMoreThanHalfNum(int[] numbers) {
+        int length = numbers.length;
+        if (length == 0) return 0;
 
-        public ListNode(int val) {
-            this.val = val;
+        int num = numbers[0], count = 1;
+        for (int i = 1; i < length; i++) {
+            if (numbers[i] == num) count++;
+            else count--;
+            if (count == 0) {
+                num = numbers[i];
+                count = 1;
+            }
         }
-
-        public ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
+        // Verifying
+        count = 0;
+        for (int i = 0; i < length; i++) {
+            if (numbers[i] == num) count++;
         }
+        if (count * 2 > length) return num;
+        return 0;
     }
 
 }
