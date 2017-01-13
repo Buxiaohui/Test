@@ -17,6 +17,7 @@ import java.util.Random;
 
 public class TestAlgorithms {
     private final static String TAG = "TestAlgorithms";
+
     /**
      * 输入一个链表，从尾到头打印链表每个节点的值。
      */
@@ -54,6 +55,10 @@ public class TestAlgorithms {
         }
         return false;
     }
+    /*************************************************/
+    /***********************
+     * start
+     *******************/
 
     public static boolean isInside02(int target, int[][] array) {
         long startT = System.nanoTime();
@@ -76,8 +81,7 @@ public class TestAlgorithms {
         }
         return false;
     }
-    /*************************************************/
-    /*********************** start *******************/
+
     /*************************************************/
 
     public static ArrayList<Integer> printListNode(Node listNode) {
@@ -406,6 +410,158 @@ public class TestAlgorithms {
 
     }
 
+    /*单链表翻转*/
+    public static Node fanzhuan(Node node) {
+        if (node == null) {
+            return null;
+        } else if (node.next == null) {
+            return node;
+        } else {
+            node.next.next = node;
+            return fanzhuan(node.next);
+        }
+    }
+
+    /**
+     * 在二维数组中查找某个数是否存在
+     * 次二维数组横向与纵向都是单调递增的
+     */
+    public static boolean testFindValueInMatrix01(int[][] matrix, int key) {
+        Log.i("testFindValueInMatrix", "testFindValueInMatrix01 key=" + key);
+        int rowCount = matrix.length;
+        int columnCount = matrix[0].length;
+        if (key < matrix[0][0]) {
+            return false;
+        } else if (key > matrix[matrix.length - 1][matrix[0].length - 1]) {
+            return false;
+        } else {
+            for (int i = 0; i < rowCount; i++) {
+                Log.i("testFindValueInMatrix", "testFindValueInMatrix01 i=" + i);
+                if (key > matrix[i][columnCount - 1] || key < matrix[i][0]) {
+                    Log.i("testFindValueInMatrix", "testFindValueInMatrix01 continue");
+                    continue;
+                } else {
+                    for (int j = columnCount - 1; j >= 0; j--) {
+                        if (key == matrix[i][j]) {
+                            Log.i("testFindValueInMatrix", "testFindValueInMatrix01 find it "+"("+i+","+j+")");
+                            return true;
+                        }
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
+
+
+    public static boolean testFindValueInMatrix03(int[][] matrix,int key){
+        Log.i("testFindValueInMatrix", "testFindValueInMatrix03 key=" + key);
+        int i = 0, j = matrix[0].length - 1;
+        int var = matrix[i][j];
+        while (i < matrix.length && j >= 0){
+            if (var == key) {
+                Log.i("testFindValueInMatrix", "testFindValueInMatrix03 find it " + "(" + i + "," + j + ")");
+                return true;
+            }else if (var < key) {
+                var = matrix[++i][j];
+            }else {
+                var = matrix[i][--j];
+            }
+        }
+        return false;
+    }
+
+    private static final int[][] matrix = {
+            {1, 2, 4, 5,  6,  7 },
+            {3, 4, 7, 8,  9,  10},
+            {4, 5, 8, 12, 14, 16},
+            {4, 6, 9, 14, 15, 17},
+    };
+
+    public static boolean testFindValueInMatrix02(
+            int left,
+            int right,
+            int top,
+            int bottom,
+            int[][] matrix,
+            int key) {
+        Log.i("testFindValueInMatrix", "testFindValueInMatrix02 key=" + key);
+        int midCol =  (left+right)>>1;
+        int midRow =  (top+bottom)>>1;
+        Log.i("testFindValueInMatrix", "testFindValueInMatrix02 left="+left+
+                "--right="+right+
+                "--top="+top+
+                "--bottom="+bottom+
+                "--midCol="+midCol+
+                "--midRow="+midRow);
+        Log.i("testFindValueInMatrix", "testFindValueInMatrix02 midValue=" + matrix[midRow][midCol]);
+        if(left>right || top>bottom || midCol > right || midRow > bottom){
+            return false;
+        }
+        if(key > matrix[bottom][right]){
+            return false;
+        }else if(key < matrix[top][left]){
+            return false;
+        }else{
+
+            if(key>matrix[midRow][midCol]){
+                return testFindValueInMatrix02(
+                        midCol+1,
+                         right,
+                        midRow+1,
+                        bottom,
+                        matrix,
+                        key) ||
+                        testFindValueInMatrix02(
+                                midCol+1,
+                                right,
+                                top,
+                                midRow,
+                                matrix,
+                                key) ||
+                        testFindValueInMatrix02(
+                                left,
+                                midCol,
+                                midRow+1,
+                                top+bottom,
+                                matrix,
+                                key);
+            }else if (key<matrix[midRow][midCol]){
+                return testFindValueInMatrix02(
+                        left,
+                        midCol-1,
+                        top,
+                        midRow-1,
+                        matrix,
+                        key) ||
+                        testFindValueInMatrix02(
+                                midCol,
+                                right,
+                                top,
+                                midRow-1,
+                                matrix,
+                                key) ||
+                        testFindValueInMatrix02(
+                                left,
+                                midCol-1,
+                                midRow,
+                                bottom,
+                                matrix,
+                                key);
+            }else{
+                Log.i("testFindValueInMatrix", "testFindValueInMatrix02 find it "+"("+(midRow)+","+(midCol)+")");
+                return true;
+            }
+        }
+    }
+
+    public static void testFindValueInMatrix() {
+        //testFindValueInMatrix01(matrix, 14);
+        //testFindValueInMatrix03(matrix, 14);
+        testFindValueInMatrix02(0,matrix[0].length-1,0,matrix.length-1,matrix, 9);
+    }
 
     /**
      * 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
@@ -433,5 +589,6 @@ public class TestAlgorithms {
         if (count * 2 > length) return num;
         return 0;
     }
+
 
 }

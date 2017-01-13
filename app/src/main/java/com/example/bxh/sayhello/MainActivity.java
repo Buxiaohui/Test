@@ -24,8 +24,13 @@ public class MainActivity extends Activity {
         //TestAlgorithms.testGetExponentOfNum01();
         //TestAlgorithms.testGetAdd();
         //TestAlgorithms.printMatrix();
-        MergeNodelist.testMergeList();
+         //MergeNodelist.testMergeList();
+        //Sort.test();
+        //StringTest.get01();
+        //new B();
+        //OtherTest.test();
 
+        TestAlgorithms.testFindValueInMatrix();
     }
     private void testFibonacci(){
         for (int i = 0; i < 10; i++) {
@@ -76,5 +81,27 @@ public class MainActivity extends Activity {
         }
         boolean x0 = TestAlgorithms.isInside01(37, array);
         boolean x1 = TestAlgorithms.isInside02(37, array);
+    }
+
+    class A{
+        private int i = 1;
+
+        public A(){
+            print();
+        }
+       public  void print(){
+            System.out.println("base i="+i);
+        }
+    }
+    class B extends A{
+        private int i = 1;
+
+        public B(){
+            i = 2;
+        }
+        public  void print(){
+            System.out.println("child i="+i);
+        }
+
     }
 }

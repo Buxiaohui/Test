@@ -20,7 +20,9 @@ public class MergeNodelist {
         Node nodeB = buildNode();
 
         Node node = testMergeList(nodeA, nodeB);
-        printListNode(node);
+        Node node1 = reSortArray2List(nodeA,nodeB);
+        //printListNode(node);
+        printListNode(node1);
     }
 
     /**
@@ -42,6 +44,23 @@ public class MergeNodelist {
             node.next = testMergeList(nodeA, nodeB.next);
         }
         return node;
+    }
+    private static Node reSortArray2List(Node nodeA,Node nodeB){
+        if(nodeA == null){
+            return nodeB;
+        }
+        if(nodeB == null){
+            return nodeB;
+        }
+
+        if(nodeA.val < nodeB.val){
+            nodeA.next = (reSortArray2List(nodeA.next, nodeB));
+            return nodeA;
+        }else{
+            nodeB.next = (reSortArray2List(nodeA, nodeB.next));
+            return nodeB;
+        }
+
     }
 
     private static Node buildNode() {
@@ -73,25 +92,39 @@ public class MergeNodelist {
     /**
      * 非递归
      */
-    public static void testMergeList02() {
-        //构造listA & listB
-        Node nodeA = buildNode();
-        Node nodeB = buildNode();
-        Node node = null;
+    public Node testMergeList02(Node nodeA, Node nodeB) {
+        Node firstNode = null;
+        Node currentNode = null;
+        if (nodeA == null) {
+            return nodeB;
+        }
+        if (nodeB == null) {
+            return nodeA;
+        }
         while (nodeA != null && nodeB != null) {
             if (nodeA.val < nodeB.val) {
-                node = nodeA;
-                node.next = nodeB;
-                nodeB = nodeA.next;
+                if(firstNode==null){
+                    currentNode = nodeA;
+                    firstNode = nodeA;
+                }else{
+                    currentNode.next = nodeA;
+                    currentNode = currentNode.next;
+                }
+                nodeA = nodeA.next;
 
-                nodeA.next = nodeB;
             } else {
-                node = nodeB;
-                nodeA.next = nodeB.next;
-                nodeB.next = nodeA;
+                if(firstNode==null){
+                    firstNode = nodeB;
+                    currentNode = nodeB;
+                }else{
+                    currentNode.next = nodeB;
+                    currentNode = currentNode.next;
+                }
+                nodeB = nodeB.next;
             }
         }
 
+        return  firstNode;
     }
 
 }
