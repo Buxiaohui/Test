@@ -1,5 +1,7 @@
 package com.example.bxh.sayhello;
 
+import android.os.StrictMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -101,6 +103,7 @@ public class MergeNodelist {
         if (nodeB == null) {
             return nodeA;
         }
+        StrictMode l;
         while (nodeA != null && nodeB != null) {
             if (nodeA.val < nodeB.val) {
                 if(firstNode==null){
