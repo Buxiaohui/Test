@@ -122,7 +122,8 @@ public class TableView extends View {
         float stopX = mCanvasWidth - rightMargin;
         //主要是Y的计算
         for (int i = 0; i < horizontalLineCount; i++) {
-            float startY = getHorizonalLineY(i);
+            // x-axis 上不画虚线
+            float startY = getHorizonalLineY(i + 1);
             float stopY = startY;
             Path path = new Path();
             path.moveTo(startX, startY);
@@ -136,22 +137,24 @@ public class TableView extends View {
         float startX = leftMargin;
         float stopX = mCanvasWidth - rightMargin;
         //主要是Y的计算
-            float startY = getGuradLineY();
-            float stopY = startY;
-            Path path = new Path();
-            path.moveTo(startX, startY);
-            path.lineTo(stopX, stopY);
-            canvas.drawPath(path, mGuardLinePaint);
+        float startY = getGuradLineY();
+        float stopY = startY;
+        Path path = new Path();
+        path.moveTo(startX, startY);
+        path.lineTo(stopX, stopY);
+        canvas.drawPath(path, mGuardLinePaint);
     }
-    private float getGuradLineY(){
-        float y  = mCanvasHeight-bottomMargin;
-        y = y-bottomMargin;
+
+    private float getGuradLineY() {
+        float y = mCanvasHeight - bottomMargin;
+        y = y - bottomMargin;
         return y;
     }
+
     private float getHorizonalLineY(int index) {
         float y;
         float yGap = (mCanvasHeight - bottomMargin - topMargin) / horizontalLineCount;
-        y = mCanvasHeight - bottomMargin - yGap * ((float) index + 1f);
+        y = mCanvasHeight - bottomMargin - yGap * ((float) index);
         return y;
     }
 
@@ -173,7 +176,7 @@ public class TableView extends View {
         float startX = leftMargin;
         float stopX = startX - tickMarkHeight;
         for (int i = 0; i < yAxisTickMarkCount; i++) {
-            float startY = getTickLineY(i);
+            float startY = getTickLineY(i + 1);
             float stopY = startY;
             canvas.drawLine(startX, startY, stopX, stopY, mXYPaint);
         }
@@ -183,7 +186,8 @@ public class TableView extends View {
         float startY = (mCanvasHeight - bottomMargin);
         float stopY = startY + tickMarkHeight;
         for (int i = 0; i < xAxisTickMarkCount; i++) {
-            float startX = getTickLineX(i);
+            // x-axis 坐标原点 上不画线
+            float startX = getTickLineX(i + 1);
             float stopX = startX;
             canvas.drawLine(startX, startY, stopX, stopY, mXYPaint);
         }
@@ -192,7 +196,7 @@ public class TableView extends View {
     private void drawXTickMarksText(Canvas canvas) {
         float startY = (mCanvasHeight - bottomMargin);
         float stopY = startY + tickMarkHeight;
-        for (int i = 0; i < xAxisTickMarkCount; i++) {
+        for (int i = 0; i < xAxisTickMarkCount + 1; i++) {
             float startX = getTickLineX(i);
             float stopX = startX;
             canvas.drawText("" + i, startX, startY + 50, mTickMarkPaint);
@@ -202,7 +206,7 @@ public class TableView extends View {
     private void drawYTickMarksText(Canvas canvas) {
         float startX = leftMargin;
         float stopX = startX - tickMarkHeight;
-        for (int i = 0; i < yAxisTickMarkCount; i++) {
+        for (int i = 0; i < yAxisTickMarkCount + 1; i++) {
             float startY = getTickLineY(i);
             float stopY = startY;
             canvas.drawText("" + i, startX - 50, startY, mTickMarkPaint);
@@ -210,11 +214,18 @@ public class TableView extends View {
     }
 
 
-
     private void drawLine(Canvas cavans) {
+        float min = 0f;
+        float max = 19f;
+        float leftMargin = this.leftMargin;
+        float bottomMargin = this.bottomMargin;
+        float topMargin = this.topMargin;
+        float rightMargin = this.rightMargin;
+        float[] margins = {leftMargin, topMargin, rightMargin, bottomMargin};
+        float xgap = (mCanvasWidth - this.leftMargin - this.rightMargin) / xAxisTickMarkCount;
         for (Line line : mList) {
             if (line != null) {
-              //TODO
+                line.calculateAndDrawAll(cavans, min, max, mCanvasHeight, xgap, margins);
             }
         }
         drawGuardLine(cavans);
@@ -257,6 +268,7 @@ public class TableView extends View {
         mDividerPaint.setStrokeWidth(DIVIDER_WIDTH);//just test
         mDividerPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
+
     private void initGuardLinePaint() {
         if (mGuardLinePaint == null) {
             mGuardLinePaint = new Paint();
@@ -298,10 +310,8 @@ public class TableView extends View {
     }
 
     /**
-     *
      * Y轴
-     *
-     * */
+     */
     private void setYNums(String[] mYNums, int lineOffset, int textOffset) {
         this.mYNums = mYNums;
         this.mLineOffset = lineOffset;

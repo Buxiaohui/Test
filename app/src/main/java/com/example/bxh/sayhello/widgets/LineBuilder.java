@@ -71,8 +71,8 @@ public class LineBuilder {
             mNodeTextPaint.setStrokeWidth(1);//just test
             mNodeTextPaint.setStyle(Paint.Style.STROKE);
             mNodeTextPaint.setTextAlign(Paint.Align.CENTER);
-            mNodeTextPaint.setTextSize(100);
-            mNodeTextPaint.setUnderlineText(true);
+            mNodeTextPaint.setTextSize(40);
+            mNodeTextPaint.setUnderlineText(false);
         }
         return mNodeTextPaint;
     }

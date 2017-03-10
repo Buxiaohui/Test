@@ -72,18 +72,20 @@ public class Line {
     /**
      * must called first
      */
-    public void calculateAndDrawAll(Canvas canvas,float xOffset, double mMaxValBoundary, int mCanvasHeight) {
-        calculate(xOffset, mMaxValBoundary, mCanvasHeight);
+    public void calculateAndDrawAll(Canvas canvas, float startYNum, float stopYNum, float mCanvasHeight, float xgap, float[] margins) {
+        calculateV2(canvas, startYNum, stopYNum, mCanvasHeight, xgap, margins);
         drawAll(canvas);
     }
-    public void calculate(float xOffset, double mMaxValBoundary, int mCanvasHeight) {
+
+    public void calculateV2(Canvas canvas, float startYNum, float stopYNum, float mCanvasHeight, float xgap, float[] margins) {
         LineNode[] lineNodes = new LineNode[values.length];
         if (values.length > 0) {
             for (int i = 0; i < values.length; i++) {
-                float yPos = mCanvasHeight * (1f - values[i] / ((float) mMaxValBoundary));
-                float xPos = xOffset * i;
+                float coordinateHeight = mCanvasHeight - margins[1] - margins[3];
+                Log.i(TAG, "(values[i]-startYNum) / (stopYNum - startYNum)=" + (values[i] - startYNum) / (stopYNum - startYNum));
+                float yPos = coordinateHeight * (1f - (values[i] - startYNum) / (stopYNum - startYNum + 1)) + margins[1];
+                float xPos = xgap * i + margins[0];
                 lineNodes[i] = new LineNode(xPos, yPos);
-                Log.i(TAG, "drawtNode i=" + i + "--xPos=" + xPos + "--yPos=" + yPos);
             }
         }
         nodes = lineNodes;
@@ -107,14 +109,15 @@ public class Line {
     }
 
     public void drawNodeText(Canvas canvas) {
+        float offset = 20;
         for (int i = 0; i < values.length; i++) {
             LineNode node = nodes[i];
-            canvas.drawText("" + values[i], node.getNodeCenterX(), node.getNodeCenterY(), mNodeTextPaint);
+            canvas.drawText("" + values[i], node.getNodeCenterX(), node.getNodeCenterY()-offset, mNodeTextPaint);
         }
     }
 
 
-    public void drawAll(Canvas canvas) {
+    private void drawAll(Canvas canvas) {
         drawConnection(canvas);
         drawNode(canvas);
         drawNodeText(canvas);

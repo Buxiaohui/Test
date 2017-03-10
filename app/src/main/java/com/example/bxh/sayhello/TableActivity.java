@@ -19,7 +19,7 @@ public class TableActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
         InjectUtils.autoInjectAllField(this);
-        float[] vals = {1f, 1.5f, 3f, 6f, 2f, 5f};
+        float[] vals = {1f, 1.5f, 3f, 6f, 2f, 5f,7f,19f,17f,16f,12f,10f};
         Line line = new LineBuilder().setValues(vals).build();
         mTableView.addLine(line);
     }
