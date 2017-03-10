@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -25,6 +24,9 @@ import java.util.List;
 public class TableView extends View {
     private static final int DIVIDER_WIDTH = 2;//px
     private static final String TAG = "TableView";
+    String[] mYNums;
+    int mLineOffset;
+    int mTextOffset;
     private List<Line> mList;
     private String yName;//y轴的单位名称
     private String xName;
@@ -39,7 +41,9 @@ public class TableView extends View {
     private int mCanvasWidth;
     private int mValLength;
     private Paint mXYPaint;
+    private Paint mTickMarkPaint;
     private Paint mDividerPaint;
+    private Paint mGuardLinePaint;
     private float bottomMargin = 100;//px
     private float leftMargin = 100;//px
     private float topMargin = 100;//px
@@ -76,8 +80,10 @@ public class TableView extends View {
         super.onDraw(canvas);
         initDividerPaint();
         initXYPaint();
+        initTickMarkPaint();
+        initGuardLinePaint();
         drawCoordinate(canvas);
-        //drawLine(canvas);
+        drawLine(canvas);
     }
 
     private void drawCoordinate(Canvas canvas) {
@@ -126,6 +132,22 @@ public class TableView extends View {
 
     }
 
+    private void drawGuardLine(Canvas canvas) {
+        float startX = leftMargin;
+        float stopX = mCanvasWidth - rightMargin;
+        //主要是Y的计算
+            float startY = getGuradLineY();
+            float stopY = startY;
+            Path path = new Path();
+            path.moveTo(startX, startY);
+            path.lineTo(stopX, stopY);
+            canvas.drawPath(path, mGuardLinePaint);
+    }
+    private float getGuradLineY(){
+        float y  = mCanvasHeight-bottomMargin;
+        y = y-bottomMargin;
+        return y;
+    }
     private float getHorizonalLineY(int index) {
         float y;
         float yGap = (mCanvasHeight - bottomMargin - topMargin) / horizontalLineCount;
@@ -173,7 +195,7 @@ public class TableView extends View {
         for (int i = 0; i < xAxisTickMarkCount; i++) {
             float startX = getTickLineX(i);
             float stopX = startX;
-            canvas.drawText("" + i, startX, startY+50, mXYPaint);
+            canvas.drawText("" + i, startX, startY + 50, mTickMarkPaint);
         }
     }
 
@@ -183,18 +205,20 @@ public class TableView extends View {
         for (int i = 0; i < yAxisTickMarkCount; i++) {
             float startY = getTickLineY(i);
             float stopY = startY;
-            canvas.drawText("" + i, startX-50, startY, mXYPaint);
+            canvas.drawText("" + i, startX - 50, startY, mTickMarkPaint);
         }
     }
+
+
 
     private void drawLine(Canvas cavans) {
         for (Line line : mList) {
             if (line != null) {
-                line.calculateAndDrawAll(cavans, xOffset, mMaxValBoundary, mCanvasHeight);
+              //TODO
             }
         }
+        drawGuardLine(cavans);
     }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -211,6 +235,17 @@ public class TableView extends View {
         mXYPaint.setStyle(Paint.Style.STROKE);
     }
 
+    private void initTickMarkPaint() {
+        if (mTickMarkPaint == null) {
+            mTickMarkPaint = new Paint();
+        }
+        mTickMarkPaint.setAntiAlias(true);
+        mTickMarkPaint.setTextSize(30);
+        mTickMarkPaint.setColor(Color.BLACK);
+        mTickMarkPaint.setStrokeWidth(DIVIDER_WIDTH);//just test
+        mTickMarkPaint.setStyle(Paint.Style.STROKE);
+    }
+
     private void initDividerPaint() {
         if (mDividerPaint == null) {
             mDividerPaint = new Paint();
@@ -222,6 +257,17 @@ public class TableView extends View {
         mDividerPaint.setStrokeWidth(DIVIDER_WIDTH);//just test
         mDividerPaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
+    private void initGuardLinePaint() {
+        if (mGuardLinePaint == null) {
+            mGuardLinePaint = new Paint();
+        }
+        PathEffect effects = new DashPathEffect(new float[]{1, 2}, 1);
+        mGuardLinePaint.setPathEffect(effects);
+        mGuardLinePaint.setAntiAlias(true);
+        mGuardLinePaint.setColor(Color.RED);
+        mGuardLinePaint.setStrokeWidth(DIVIDER_WIDTH);//just test
+        mGuardLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+    }
 
     public void addLine(Line line) {
         if (mList == null) {
@@ -231,7 +277,6 @@ public class TableView extends View {
         calculateBoundaryValue();
         invalidate();
     }
-
 
     private void calculateBoundaryValue() {
         for (Line line : mList) {
@@ -251,6 +296,18 @@ public class TableView extends View {
         mMinValBoundary = Math.floor(mMaxVal);
 
     }
+
+    /**
+     *
+     * Y轴
+     *
+     * */
+    private void setYNums(String[] mYNums, int lineOffset, int textOffset) {
+        this.mYNums = mYNums;
+        this.mLineOffset = lineOffset;
+        this.mTextOffset = textOffset;
+    }
+
 
 }
 
