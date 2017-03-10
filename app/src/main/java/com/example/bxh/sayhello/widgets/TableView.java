@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 
 /**
  * v1.0
- * 暂时不考虑复杂情况，默认全是正数
+ * 暂时不考虑复杂情况
  */
 public class TableView extends View {
     private static final int DIVIDER_WIDTH = 2;//px
@@ -32,8 +33,8 @@ public class TableView extends View {
     private String xName;
     private float xOffset;
     private float yOffset;
-    private float mMaxVal;
-    private float mMinVal;
+    private float mMaxVal = 20;
+    private float mMinVal = 0;
     private double mMinValBoundary;
     private double mMaxValBoundary;
     private boolean mIsMeasure = true;
@@ -53,6 +54,7 @@ public class TableView extends View {
     private int yAxisTickMarkCount = horizontalLineCount * 2;
     private int xAxisTickMarkCount = verticalLineCount;
     private float tickMarkHeight = 10;
+    private float mGuardLineVal;
 
     public TableView(Context context) {
         super(context);
@@ -87,9 +89,6 @@ public class TableView extends View {
     }
 
     private void drawCoordinate(Canvas canvas) {
-        if (mValLength <= 0) {
-            return;
-        }
         drawXLine(canvas);
         drawYLine(canvas);
         drawHorizontalLines(canvas);
@@ -146,9 +145,18 @@ public class TableView extends View {
     }
 
     private float getGuradLineY() {
-        float y = mCanvasHeight - bottomMargin;
-        y = y - bottomMargin;
+        float percent = mGuardLineVal / (mMaxVal - mMinVal);
+        float y = (float)mCanvasHeight - bottomMargin - percent * (mCanvasHeight - bottomMargin - topMargin);
         return y;
+    }
+
+    public float getmGuardLineVal() {
+        return mGuardLineVal;
+    }
+
+    public TableView setmGuardLineVal(float mGuardLineVal) {
+        this.mGuardLineVal = mGuardLineVal;
+        return this;
     }
 
     private float getHorizonalLineY(int index) {
@@ -277,7 +285,7 @@ public class TableView extends View {
         mGuardLinePaint.setPathEffect(effects);
         mGuardLinePaint.setAntiAlias(true);
         mGuardLinePaint.setColor(Color.RED);
-        mGuardLinePaint.setStrokeWidth(DIVIDER_WIDTH);//just test
+        mGuardLinePaint.setStrokeWidth(4);//just test
         mGuardLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
@@ -291,21 +299,7 @@ public class TableView extends View {
     }
 
     private void calculateBoundaryValue() {
-        for (Line line : mList) {
-            if (line != null) {
-                if (line.getMaxVal() > mMaxVal) {
-                    mMaxVal = line.getMaxVal();
-                }
-                if (line.getMinVal() > mMinVal) {
-                    mMinVal = line.getMinVal();
-                }
-                if (line.getValues() != null && line.getValues().length > mValLength) {
-                    mValLength = line.getValues().length;
-                }
-            }
-        }
-        mMaxValBoundary = Math.ceil(mMaxVal);
-        mMinValBoundary = Math.floor(mMaxVal);
+
 
     }
 

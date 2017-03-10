@@ -84,7 +84,7 @@ public class Line {
                 float coordinateHeight = mCanvasHeight - margins[1] - margins[3];
                 Log.i(TAG, "(values[i]-startYNum) / (stopYNum - startYNum)=" + (values[i] - startYNum) / (stopYNum - startYNum));
                 float yPos = coordinateHeight * (1f - (values[i] - startYNum) / (stopYNum - startYNum + 1)) + margins[1];
-                float xPos = xgap * i + margins[0];
+                float xPos = xgap * (i+1) + margins[0];
                 lineNodes[i] = new LineNode(xPos, yPos);
             }
         }
