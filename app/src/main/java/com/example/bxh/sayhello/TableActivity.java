@@ -31,6 +31,9 @@ public class TableActivity extends Activity {
         mTableView.setmGuardLineVal(1.5f);
         mTableView.addLine(line);
         mTableView.addLine(line1);
+
+
+        Tree.getRoot();
     }
 
 
