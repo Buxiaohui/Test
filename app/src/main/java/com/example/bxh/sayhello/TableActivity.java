@@ -33,7 +33,7 @@ public class TableActivity extends Activity {
         mTableView.addLine(line1);
 
 
-        Tree.getRoot();
+        Tree.test();
     }
 
 
