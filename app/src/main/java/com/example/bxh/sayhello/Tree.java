@@ -156,6 +156,9 @@ public class Tree {
         return null;
     }
 
+    /**
+     * 知道前序遍历 与 中序遍历  还原数
+     * */
     public static Node getRootPreIn(String[] pre, String[] in) {
         if (pre == null || in == null) {
             return null;
@@ -346,6 +349,24 @@ public class Tree {
                queue.add(node1.right);
            }
        }
+    }
+
+    /**
+     * get image of a tree
+     * 先交换上层节点，再交换下层节点
+     * */
+    private  static Node getImage(Node node){
+        if(node == null){
+            return null;
+        }
+        if(node.left == null && node.right == null){
+            return node;
+        }
+        Node left = getImage(node.left);
+        Node right = getImage(node.right);
+        node.left = left;
+        node.right = right;
+        return node;
     }
 
     /**

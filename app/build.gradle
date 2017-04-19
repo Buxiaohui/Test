@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'groovyx.android'
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.example.bxh.sayhello"
-        minSdkVersion 15
+        minSdkVersion 18
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -13,8 +13,14 @@ android {
         aaptOptions.cruncherEnabled = false
         aaptOptions.useNewCruncher = false
     }
+    signingConfigs{
+        debug{
+
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -23,36 +29,121 @@ android {
 
         }
 
+        doTestDebug{
+            initWith debug
+        }
 
+        staging.initWith(buildTypes.debug)
+        staging {
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+            buildConfigField "String", "API_URL", "\"http://staging.example.com/api\""
+        }
+
+
+    }
+
+    packagingOptions {
+        // workaround for http://stackoverflow.com/questions/20673625/android-gradle-plugin-0-7-0-duplicate-files-during-packaging-of-apk
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/groovy-release-info.properties'
+    }
+    flavorDimensions "color", "price"
+    productFlavors {
+        red {
+            dimension "color"
+        }
+        blue {
+            dimension "color"
+        }
+        free {
+            dimension "price"
+        }
+        paid {
+            dimension "price"
+        }
     }
 
     sourceSets{
-        HTest1{
-            res.srcDir("src/main/res-test1")
+        //如果加上这个配置，那么所有release的build版本，这个配置的优先级最高
+        release{
+            res.srcDir("src/main/res-blue")
         }
 
-        HTest2{
-            res.srcDir("src/main/res")
-        }
-    }
-
-    productFlavors {
-        HTest1 {
-
+        red{
+            //"有"--->"与main平级"的文件目录
+            //所以可以不指定什么东西……
         }
 
-        HTest2 {
+        blue{
+            //"没有" --->"与main平级"的文件目录
+            //可以指定文件路径
+            res.srcDir("src/main/res-blue")
+            manifest.srcFile 'src/other/AndroidManifest.xml'
+        }
 
+        main{
+            //默认不需要指定
+            //所有种类的 build type 如果没有指定资源文件路径，则默认为main 的路径
+           res.srcDir("src/main/res")
         }
     }
 }
-
+//androidGroovy {
+//    sourceSets {
+//        main {
+//            groovy {
+//                srcDirs += 'src/main/java'
+//            }
+//        }
+//    }
+//}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.android.support:support-annotations:23.1.1'
     compile 'com.android.support:appcompat-v7:24.0.0'
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.8.0'
+    compile 'org.xutils:xutils:3.3.44'
+    //    compile 'org.codehaus.groovy:groovy:2.4.7:grooid'
+    //    compile 'org.codehaus.groovy:groovy:2.4.0-SNAPSHOT:grooid'
+    //     the following dependency is necessary if you want JSON support
+    //    compile('org.codehaus.groovy:groovy-json:2.4.0-SNAPSHOT') {
+    //        transitive = false
+    //    }
+//    compile('org.codehaus.groovy:groovy-json:2.5.0-alpha-1') {
+//        transitive = false
+//    }
+//    compile 'org.codehaus.groovy:groovy-groovydoc:2.5.0-alpha-1'
+//    compile 'org.codehaus.groovy:groovy:2.5.0-alpha-1'
+
+
+    androidTestCompile ('com.android.support.test:runner:0.5'){
+        exclude group: 'com.android.support', module: 'support-annotations'}
+    androidTestCompile ('com.android.support.test:rules:0.5'){
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+
 }
+
+// add support for Groovy to existing configurations
+//android.applicationVariants.all {
+//    task "groovy${name}Compile"(type: GroovyCompile) {
+//        source = javaCompile.source + fileTree('src/main/java').include('**/*.groovy')
+//        destinationDir = javaCompile.destinationDir
+//        classpath = javaCompile.classpath
+//        groovyClasspath = classpath
+//        sourceCompatibility = '1.6'
+//        targetCompatibility = '1.6'
+//        doFirst {
+//            def runtimeJars = plugins.findPlugin(com.android.build.gradle.AppPlugin).runtimeJars
+//            classpath = files(runtimeJars) + classpath
+//        }
+//    }
+//    javaCompile.dependsOn("groovy${name}Compile")
+//    javaCompile.enabled = false
+//}

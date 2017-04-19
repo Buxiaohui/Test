@@ -21,10 +21,12 @@ public class MergeNodelist {
         Node nodeA = buildNode();
         Node nodeB = buildNode();
 
-        Node node = testMergeList(nodeA, nodeB);
-        Node node1 = reSortArray2List(nodeA,nodeB);
+        //Node node = testMergeList(nodeA, nodeB);
+        Node node2 = testMergeList3(nodeA, nodeB);
+        printListNode(node2);
+        //Node node1 = reSortArray2List(nodeA,nodeB);
         //printListNode(node);
-        printListNode(node1);
+        //printListNode(node1);
     }
 
     /**
@@ -46,6 +48,21 @@ public class MergeNodelist {
             node.next = testMergeList(nodeA, nodeB.next);
         }
         return node;
+    }
+    public static Node testMergeList3(Node nodeA, Node nodeB) {
+        if (nodeA == null) {
+            return nodeB;
+        }
+        if (nodeB == null) {
+            return nodeA;
+        }
+        if (nodeA.val < nodeB.val) {
+            nodeA.next = testMergeList(nodeA.next, nodeB);
+            return nodeA;
+        } else {
+            nodeB.next = testMergeList(nodeA, nodeB.next);
+            return nodeB;
+        }
     }
     private static Node reSortArray2List(Node nodeA,Node nodeB){
         if(nodeA == null){
@@ -103,7 +120,7 @@ public class MergeNodelist {
         if (nodeB == null) {
             return nodeA;
         }
-        StrictMode l;
+
         while (nodeA != null && nodeB != null) {
             if (nodeA.val < nodeB.val) {
                 if(firstNode==null){
@@ -125,6 +142,38 @@ public class MergeNodelist {
                 }
                 nodeB = nodeB.next;
             }
+        }
+
+        return  firstNode;
+    }
+
+    public Node testMergeList03(Node nodeA, Node nodeB) {
+        Node firstNode = null;//头节点
+        Node currentNode = null;//游标指向前一个节点
+        if (nodeA == null) {
+            return nodeB;
+        }
+        if (nodeB == null) {
+            return nodeA;
+        }
+        //游标A 游标B 作对比
+        while (nodeA != null && nodeB != null) {
+             if(nodeA.val < nodeB.val){
+                 if(firstNode == null){
+                     //初始化 头
+                     firstNode = nodeA;
+                     //游标指向前一个节点
+                     currentNode = nodeA;
+                 }else{
+                     //两个游标 当前小的下一个节点
+                     currentNode.next = nodeA;
+                     currentNode = currentNode.next;
+                 }
+                 //更新游标A
+                 nodeA = nodeA.next;
+             }else{
+                 //雷同
+             }
         }
 
         return  firstNode;

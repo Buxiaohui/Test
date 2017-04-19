@@ -2,12 +2,17 @@ package com.example.bxh.sayhello;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.inject.InjectUtils;
@@ -19,12 +24,10 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     @ViewInject(value = R.id.text1, value3 = 0)
     private TextView mTextView1;
-    @ViewInject(value = R.id.text2, value3 = 0)
-    private TextView mTextView2;
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            Log.i(TAG,"msg callback");
+            Log.i(TAG, "msg callback");
             return false;
         }
     }) {
@@ -32,26 +35,34 @@ public class MainActivity extends Activity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             mTextView1.setText("hahaahhahahahahahahahaha");
-            Log.i(TAG,"handleMessage");
+            Log.i(TAG, "handleMessage");
         }
     };
+    @ViewInject(value = R.id.text2, value3 = 0)
+    private TextView mTextView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
-        testThread();
+        mTextView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TestActivity.class));
+            }
+        });
+        //testThread();
         //testHtmlTextView1();
         //testHtmlTextView2();
         //testClone();
         //handler.sendEmptyMessageDelayed(1, 2000);
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Log.i(TAG,"run in post");
-            }
-        });
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.i(TAG,"run in post");
+//            }
+//        });
         //testClassInit();
         //testNestedInit();
         //testAlgorithms();
@@ -75,7 +86,14 @@ public class MainActivity extends Activity {
 
         //TestAlgorithms.testFindValueInMatrix();
 
-        //startActivity(new Intent(this,TestActivity.class));
+        //startActivity(new Intent(this,TestActivityPrefrence.class));
+        //Sort.test();
+        //HeapSort.sortTest();
+        //new StringTest().test();
+        //MergeNodelist.testMergeList();
+        //OtherTest.testInteger();
+        //testWebView();
+        System.out.println("classTest----" + ChildClass.staticField);
     }
 
     private void testFibonacci() {
@@ -88,8 +106,8 @@ public class MainActivity extends Activity {
 
     private void testClassInit() {
         System.out.println("classTest -----我是start分割线----");
-        new BaseClass();
-        System.out.println("classTest -----我是mid分割线----");
+        //new BaseClass();
+        //System.out.println("classTest -----我是mid分割线----");
         new ChildClass();
         System.out.println("classTest -----我是end分割线----");
     }
@@ -147,6 +165,92 @@ public class MainActivity extends Activity {
 
     }
 
+    private void testHtmlTextView1() {
+        final Html.ImageGetter imageGetter = new Html.ImageGetter() {
+
+            public Drawable getDrawable(String source) {
+                Drawable drawable = null;
+                URL url;
+                try {
+                    url = new URL(source);
+                    drawable = Drawable.createFromStream(url.openStream(), "");
+                    System.out.println("imageGetter thread=" + Thread.currentThread().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                return drawable;
+            }
+        };
+        final String sText = "测试图片信息：<br><img src=\"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1487817104&di=33cd1b4a0e562a879160df72fcb58b84&src=http://img4q.duitang.com/uploads/item/201407/05/20140705144822_akWZc.thumb.700_0.jpeg\" /><img src=\"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1487817104&di=33cd1b4a0e562a879160df72fcb58b84&src=http://img4q.duitang.com/uploads/item/201407/05/20140705144822_akWZc.thumb.700_0.jpeg\" />";
+        mTextView1.setText(Html.fromHtml(sText, imageGetter, null));
+    }
+
+    private void testHtmlTextView2() {
+        final String sText = "测试图片信息：<img src=\"" + R.drawable.wanjian_girl + "\" />";
+        final Html.ImageGetter imageGetter = new Html.ImageGetter() {
+
+            public Drawable getDrawable(String source) {
+                Drawable drawable = null;
+                int rId = Integer.parseInt(source);
+                drawable = getResources().getDrawable(rId);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                return drawable;
+            }
+        };
+        mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
+    }
+
+    private void testThread() {
+        new ThreadTest().test();
+    }
+
+    void testWebView() {
+        WebView webView = (WebView) findViewById(R.id.webview);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setAllowFileAccess(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setDomStorageEnabled(true);
+
+        webView.loadUrl("https://www.baidu.com");
+        webView.setWebViewClient(new WebViewClient() {
+                                     @Override
+                                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                         if (url.startsWith("http")) {
+                                             return false;
+                                         }
+                                         return super.shouldOverrideUrlLoading(view, url);
+                                     }
+
+                                     @Override
+                                     public void onPageFinished(WebView view, String url) {
+                                         super.onPageFinished(view, url);
+                                     }
+
+                                     @Override
+                                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                                         super.onPageStarted(view, url, favicon);
+                                     }
+
+                                     @Override
+                                     public void onLoadResource(WebView view, String url) {
+                                         super.onLoadResource(view, url);
+                                     }
+
+                                     @Override
+                                     public void onPageCommitVisible(WebView view, String url) {
+                                         super.onPageCommitVisible(view, url);
+                                     }
+                                 }
+
+
+        );
+
+    }
+
     class A {
         private int i = 1;
 
@@ -170,47 +274,6 @@ public class MainActivity extends Activity {
             System.out.println("child i=" + i);
         }
 
-    }
-
-    private void testHtmlTextView1(){
-        final Html.ImageGetter imageGetter = new Html.ImageGetter() {
-
-            public Drawable getDrawable(String source) {
-                Drawable drawable=null;
-                URL url;
-                try {
-                    url = new URL(source);
-                    drawable = Drawable.createFromStream(url.openStream(), "");
-                    System.out.println("imageGetter thread="+Thread.currentThread().toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-                return drawable;
-            }
-        };
-        final String sText = "测试图片信息：<br><img src=\"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1487817104&di=33cd1b4a0e562a879160df72fcb58b84&src=http://img4q.duitang.com/uploads/item/201407/05/20140705144822_akWZc.thumb.700_0.jpeg\" /><img src=\"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1487817104&di=33cd1b4a0e562a879160df72fcb58b84&src=http://img4q.duitang.com/uploads/item/201407/05/20140705144822_akWZc.thumb.700_0.jpeg\" />";
-        mTextView1.setText(Html.fromHtml(sText, imageGetter, null));
-    }
-
-    private void testHtmlTextView2(){
-        final String sText = "测试图片信息：<img src=\""+R.drawable.wanjian_girl+"\" />";
-        final Html.ImageGetter imageGetter = new Html.ImageGetter() {
-
-            public Drawable getDrawable(String source) {
-                Drawable drawable=null;
-                int rId=Integer.parseInt(source);
-                drawable=getResources().getDrawable(rId);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-                return drawable;}
-        };
-        mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
-    }
-
-
-    private void testThread(){
-        new ThreadTest().test();
     }
 
 }

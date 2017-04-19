@@ -10,6 +10,7 @@ public class ChildClass extends BaseClass {
 
     // 静态初始化块
     static {
+        staticField = "classTest ChildClass 静态变量被改变";
         System.out.println(staticField);
         System.out.println("classTest ChildClass 静态初始化块");
     }

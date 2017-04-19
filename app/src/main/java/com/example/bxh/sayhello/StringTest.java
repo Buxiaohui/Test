@@ -2,6 +2,8 @@ package com.example.bxh.sayhello;
 
 import android.util.Log;
 
+import java.util.HashMap;
+
 /**
  * Created by bxh on 12/24/16.
  */
@@ -66,6 +68,39 @@ public class StringTest {
      */
     public static String get02() {
         String str = "abnjac";
+        HashMap k;
         return "";
+    }
+
+
+
+    class TestPeople{
+        int age;
+
+        public TestPeople(int age) {
+            this.age = age;
+        }
+    }
+    String str = new String("good");
+
+    char[] ch = { 'a', 'b', 'c' };
+    TestPeople testPeople ;
+    public  void test() {
+
+        testPeople = new TestPeople(1);
+        change(testPeople,str, ch);
+
+        System.out.println("strTest--"+str + " and ");
+
+        System.out.println("strTest--"+ch.toString());
+        System.out.println("strTest--"+testPeople.age);
+
+    }
+
+    public void change(TestPeople testPeople,String str, char ch[]) {
+        str = new String("test ok");
+        testPeople = new TestPeople(2);
+        testPeople.age = 3;
+        ch[0] = 'g';
     }
 }

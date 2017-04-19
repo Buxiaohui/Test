@@ -44,4 +44,33 @@ public class OtherTest {
         Log.i(TAG,"copy i = "+index+"--b="+new Gson().toJson(b));
     }
 
+
+   public static void testInteger(){
+       Integer i1 = 40;
+       Integer i2 = 40;
+       Integer i3 = 0;
+       Integer i4 = new Integer(40);
+       Integer i5 = new Integer(40);
+       Integer i6 = new Integer(0);
+       Integer i7 = new Integer(129);
+       Integer i8 = new Integer(129);
+       Integer i9 = 129;
+       Integer i10 = 129;
+
+       System.out.println(TAG+"i1=i2   " + (i1 == i2));
+       System.out.println(TAG+"i1=i2+i3   " + (i1 == i2 + i3));
+       System.out.println(TAG+"i1=i4   " + (i1 == i4));
+       System.out.println(TAG+"i4=i5   " + (i4 == i5));
+       Integer temp = i5+i6;
+       System.out.println(TAG+"temp   " + (temp));
+       System.out.println(TAG+"i4   " + (i4));
+       System.out.println(TAG+"i4=i5+i6   " + (i4 == i5 + i6));
+       System.out.println(TAG+"i4=temp   " + (i4 == temp));
+       System.out.println(TAG+"i4.equals(i5+i6)   " + (i4.equals(i5+i6)));
+       System.out.println(TAG+"40=i5+i6   " + (40 == i5 + i6));
+       System.out.println(TAG+"i7=i8   " + (i8==i7));
+       System.out.println(TAG+"i8=i9   " + (i8==i9));
+       System.out.println(TAG+"i9=i10   " + (i10==i9));
+   }
+
 }
