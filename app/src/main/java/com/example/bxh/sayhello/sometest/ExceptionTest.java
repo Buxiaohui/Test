@@ -1,4 +1,4 @@
-package com.example.bxh.sayhello;
+package com.example.bxh.sayhello.sometest;
 
 import android.view.View;
 

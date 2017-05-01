@@ -1,6 +1,5 @@
-package com.example.bxh.sayhello;
+package com.example.bxh.sayhello.sort;
 
-import android.provider.Settings;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -158,8 +157,12 @@ public class Sort {
         new Sort().quick_sort1(a,0,a.length-1);
     }
     static int[] a = {72,6,57,88,60,42,83,73,48,85};
-    int AdjustArray(int a[], int left, int right) //返回调整后基准数的位置
-    {
+
+    /**
+     * 快速排序相关方法
+     * TODO 返回调整后基准数的位置
+     * */
+    int AdjustArray(int a[], int left, int right) {
         int i = left, j = right;
         int x = a[left]; //a[left]即a[i]就是第一个坑
         System.out.println("quick_sort1 x="+x);
@@ -181,17 +184,24 @@ public class Sort {
                 a[j] = a[i]; //将a[i]填到a[j]中，a[i]就形成了一个新的坑
                 j--;
             }
+            //上述步骤 交换a[i] & a[j]
         }
-        //退出时，i等于j。将x填到这个坑中。
+        //退出时，i&j 碰面，i等于j。将x填到这个坑中。
         a[i] = x;
 
         return i;
     }
 
+    /**
+     * 快速排序
+     *
+     * */
     void quick_sort1(int[] aOri, int l, int r) {
         int[] a =aOri.clone();
         if (l < r) {
             int i = AdjustArray(a, l, r);//先成挖坑填数法调整s[]
+            //i 的左侧 < a[i] ,右侧>a[i]
+            //继续对左右进行快排
             quick_sort1(a, l, i - 1); // 递归调用
             quick_sort1(a, i + 1, r);
         }
@@ -199,109 +209,6 @@ public class Sort {
     }
 
 
-    /**
-     * 暴力匹配字符串算法
-     * 思路：
-     * ①如果当前字符匹配成功（即S[i] == P[j]），则i++，j++
-     * ②如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0 .相当于每次匹配失败时，i 回溯，j 被置为0。
-     * 时间复杂度为O(mn)（m、n分别为文本串和模式串的长度）。无需扩展存储空间。
-     * @param text 文本串
-     * @param pattern 模式串
-     * @return  pattern返回在text中的位置
-     */
-    public static int bruteForceSearchPatternInText(String text,String pattern){
-        int sLen = text.length();
-        int pLen = pattern.length();
 
-        char[] s = text.toCharArray();
-        char[] p = pattern.toCharArray();
 
-        while(sLen < pLen){
-            return -1;
-        }
-
-        int i = 0 ;
-        int j = 0 ;
-        while(i < sLen && j < pLen){
-            if(s[i] == p[j]){
-                //如果当前字符匹配成功（即S[i] == P[j]），则i++，j++
-                i = i+1;
-                j = j+1;
-            }else{
-                //如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0
-                i = i - (j-1);
-                j = 0;
-            }
-        }
-        //匹配成功，返回模式串p在文本串s中的位置，否则返回-1
-        if(j == pLen){
-            return i-j;
-        }else{
-            return -1;
-        }
-
-    }
-
-    /**
-     * 获得字符串的next函数值
-     *
-     * @param t
-     *            字符串
-     * @return next函数值
-     */
-    public static int[] next(char[] t) {
-        int[] next = new int[t.length];
-        next[0] = -1;
-        int i = 0;
-        int j = -1;
-        while (i < t.length - 1) {
-            if (j == -1 || t[i] == t[j]) {
-                i++;
-                j++;
-                if (t[i] != t[j]) {
-                    next[i] = j;
-                } else {
-                    next[i] = next[j];
-                }
-            } else {
-                j = next[j];
-            }
-        }
-        return next;
-    }
-
-    public static void testKmp() {
-        String s = "abbabbbbcab"; // 主串
-        String t = "bbcab"; // 模式串
-        char[] ss = s.toCharArray();
-        char[] tt = t.toCharArray();
-        System.out.println(KMP_Index(ss, tt)); // KMP匹配字符串
-    }
-
-    /**
-     * KMP匹配字符串
-     *
-     * @param s
-     *            主串
-     * @param t
-     *            模式串
-     * @return 若匹配成功，返回下标，否则返回-1
-     */
-    public static int KMP_Index(char[] s, char[] t) {
-        int[] next = next(t);
-        int i = 0;
-        int j = 0;
-        while (i <= s.length - 1 && j <= t.length - 1) {
-            if (j == -1 || s[i] == t[j]) {
-                i++;
-                j++;
-            } else {
-                j = next[j];
-            }
-        }
-        if (j < t.length) {
-            return -1;
-        } else
-            return i - t.length; // 返回模式串在主串中的头下标
-    }
 }

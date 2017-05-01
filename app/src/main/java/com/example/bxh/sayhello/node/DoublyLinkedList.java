@@ -1,4 +1,4 @@
-package com.example.bxh.sayhello;
+package com.example.bxh.sayhello.node;
 
 /**
  * Created by bxh on 1/5/17.
@@ -8,8 +8,8 @@ package com.example.bxh.sayhello;
  * 双向链表
  */
 public class DoublyLinkedList<T> {
-    private Link<T> head;       //首结点
-    private Link<T> rear;       //尾部指针
+    private LinkNode<T> head;       //首结点
+    private LinkNode<T> rear;       //尾部指针
 
     public DoublyLinkedList() {
     }
@@ -26,18 +26,18 @@ public class DoublyLinkedList<T> {
     }
 
     public void insertFirst(T data) {// 插入 到 链头
-        Link<T> newLink = new Link<T>(data);
+        LinkNode<T> newLinkNode = new LinkNode<T>(data);
         if (isEmpty()) {//为空时，第1次插入的新结点为尾结点
-            rear = newLink;
+            rear = newLinkNode;
         } else {
-            head.previous = newLink; //旧头结点的上结点等于新结点
+            head.previous = newLinkNode; //旧头结点的上结点等于新结点
         }
-        newLink.next = head; //新结点的下结点旧头结点
-        head = newLink; //赋值后，头结点的下结点是旧头结点，上结点null
+        newLinkNode.next = head; //新结点的下结点旧头结点
+        head = newLinkNode; //赋值后，头结点的下结点是旧头结点，上结点null
     }
 
     public void insertLast(T data) {//在链尾 插入
-        Link<T> newLink = new Link<T>(data);
+        LinkNode<T> newLink = new LinkNode<T>(data);
         if (isEmpty()) {
             head = newLink;
         } else {
@@ -49,7 +49,7 @@ public class DoublyLinkedList<T> {
 
     public T deleteHead() {//删除 链头
         if (isEmpty()) return null;
-        Link<T> temp = head;
+        LinkNode<T> temp = head;
         head = head.next; //变更首结点，为下一结点
         if (head != null) {
             head.previous = null;
@@ -61,7 +61,7 @@ public class DoublyLinkedList<T> {
 
     public T deleteRear() {//删除 链尾
         if (isEmpty()) return null;
-        Link<T> temp = rear;
+        LinkNode<T> temp = rear;
         rear = rear.previous; //变更尾结点，为上一结点
         if (rear != null) {
             rear.next = null;
@@ -75,7 +75,7 @@ public class DoublyLinkedList<T> {
         if (isEmpty()) {
             return null;
         }
-        Link<T> find = head;
+        LinkNode<T> find = head;
         while (find != null) {
             if (!find.data.equals(t)) {
                 find = find.next;
@@ -93,7 +93,7 @@ public class DoublyLinkedList<T> {
         if (isEmpty()) {
             return null;
         }
-        Link<T> current = head;
+        LinkNode<T> current = head;
         while (!current.data.equals(t)) {
             current = current.next;
             if (current == null) {
@@ -122,14 +122,14 @@ public class DoublyLinkedList<T> {
         if (isEmpty()) {
             return false;
         }
-        Link<T> current = head;
+        LinkNode<T> current = head;
         while (!current.data.equals(key)) {
             current = current.next;
             if (current == null) {
                 return false;
             }
         }
-        Link<T> newLink = new Link<T>(data);
+        LinkNode<T> newLink = new LinkNode<T>(data);
         if (current == rear) {
             rear = newLink;
         } else {
@@ -143,7 +143,7 @@ public class DoublyLinkedList<T> {
 
     public void displayList4Head() {//从头开始遍历
         System.out.println("List (first-->last):");
-        Link<T> current = head;
+        LinkNode<T> current = head;
         while (current != null) {
             current.displayLink();
             current = current.next;
@@ -152,19 +152,19 @@ public class DoublyLinkedList<T> {
 
     public void displayList4Rear() {//从尾开始遍历
         System.out.println("List (last-->first):");
-        Link<T> current = rear;
+        LinkNode<T> current = rear;
         while (current != null) {
             current.displayLink();
             current = current.previous;
         }
     }
 
-    class Link<T> {//链结点
+    class LinkNode<T> {//链结点
         T data;     //数据域
-        Link<T> next; //后继指针，结点         链域
-        Link<T> previous; //前驱指针，结点     链域
+        LinkNode<T> next; //后继指针，结点         链域
+        LinkNode<T> previous; //前驱指针，结点     链域
 
-        Link(T data) {
+        LinkNode(T data) {
             this.data = data;
         }
 

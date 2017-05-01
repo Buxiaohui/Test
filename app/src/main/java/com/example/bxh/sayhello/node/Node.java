@@ -1,12 +1,12 @@
-package com.example.bxh.sayhello;
+package com.example.bxh.sayhello.node;
 
 /**
  * Created by bxh on 12/20/16.
  */
 
 public class Node {
-    int val;
-    Node next;
+    public int val;
+    public Node next;
 
     public Node() {
 

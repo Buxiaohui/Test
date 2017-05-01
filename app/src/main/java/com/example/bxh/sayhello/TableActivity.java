@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
+import com.example.bxh.sayhello.sometest.ExceptionTest;
 import com.example.bxh.sayhello.widgets.Line;
 import com.example.bxh.sayhello.widgets.LineBuilder;
 import com.example.bxh.sayhello.widgets.TableView;

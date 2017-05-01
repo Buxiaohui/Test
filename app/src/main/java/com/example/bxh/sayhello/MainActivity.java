@@ -15,8 +15,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
+import com.example.bxh.sayhello.sometest.ChildClass;
+import com.example.bxh.sayhello.sometest.ThreadTest;
 
 import java.net.URL;
 

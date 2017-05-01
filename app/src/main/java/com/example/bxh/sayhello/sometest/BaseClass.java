@@ -1,4 +1,4 @@
-package com.example.bxh.sayhello;
+package com.example.bxh.sayhello.sometest;
 
 /**
  * Created by bxh on 11/10/16.

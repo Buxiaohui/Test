@@ -82,11 +82,11 @@ android {
             manifest.srcFile 'src/other/AndroidManifest.xml'
         }
 
-        main{
+//        main{
             //默认不需要指定
             //所有种类的 build type 如果没有指定资源文件路径，则默认为main 的路径
-           res.srcDir("src/main/res")
-        }
+//           res.srcDir("src/main/res")
+//        }
     }
 }
 //androidGroovy {
