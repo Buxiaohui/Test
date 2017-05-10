@@ -79,7 +79,7 @@ android {
             //"没有" --->"与main平级"的文件目录
             //可以指定文件路径
             res.srcDir("src/main/res-blue")
-            manifest.srcFile 'src/other/AndroidManifest.xml'
+            //manifest.srcFile 'src/other/AndroidManifest.xml'
         }
 
 //        main{

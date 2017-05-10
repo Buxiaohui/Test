@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.example.bxh.sayhello.color.ColorActivity;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
@@ -52,7 +53,7 @@ public class MainActivity extends Activity {
         mTextView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
+                startActivity(new Intent(MainActivity.this, ColorActivity.class));
             }
         });
         //testThread();

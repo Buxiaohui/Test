@@ -1,4 +1,4 @@
-package com.example.bxh.sayhello.OtherAlgorithms;
+package com.example.bxh.sayhello.otheralgorithms;
 
 /**
  * Created by bxh on 5/5/17.
