@@ -1,5 +1,7 @@
 package com.example.bxh.sayhello;
 
+import android.animation.ArgbEvaluator;
+import android.animation.FloatEvaluator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,7 +22,9 @@ import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
 import com.example.bxh.sayhello.sometest.ChildClass;
+import com.example.bxh.sayhello.sometest.IntegerTest;
 import com.example.bxh.sayhello.sometest.ThreadTest;
+import com.example.bxh.sayhello.widgets.DefineView;
 
 import java.net.URL;
 
@@ -38,13 +42,22 @@ public class MainActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mTextView1.setText("hahaahhahahahahahahahaha");
+            //floatEvaluator.evaluate(0.01f,0.0f,1.0f);
+            defineViewVal++;
+            if(defineViewVal > maxVal){
+                defineViewVal = 0;
+            }
+            sendEmptyMessageDelayed(0,10);
+            defineView.setVal(defineViewVal/maxVal);
             Log.i(TAG, "handleMessage");
         }
     };
+    float maxVal = 100.0f;
+    float defineViewVal;
     @ViewInject(value = R.id.text2, value3 = 0)
     private TextView mTextView2;
-
+    DefineView defineView;
+    FloatEvaluator floatEvaluator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +69,20 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, ColorActivity.class));
             }
         });
+        IntegerTest.testVal();
+         defineView = (DefineView) findViewById(R.id.defineView);
+        handler.sendEmptyMessage(0);
+         floatEvaluator = new FloatEvaluator(){
+            @Override
+            public Float evaluate(float fraction, Number startValue, Number endValue) {
+
+                float val = super.evaluate(fraction, startValue, endValue);
+                Log.i(TAG, "BBBBB evaluate val="+val);
+                return val;
+            }
+        };
+
+
         //testThread();
         //testHtmlTextView1();
         //testHtmlTextView2();
