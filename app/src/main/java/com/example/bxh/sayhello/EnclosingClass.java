@@ -79,4 +79,29 @@ public class EnclosingClass {
             System.out.println("classTest --test_01_NestedClass03()");
         }
     }
+
+    class A {
+        private int i = 1;
+
+        public A() {
+            print();
+        }
+
+        public void print() {
+            System.out.println("base i=" + i);
+        }
+    }
+
+    class B extends A {
+        private int i = 1;
+
+        public B() {
+            i = 2;
+        }
+
+        public void print() {
+            System.out.println("child i=" + i);
+        }
+
+    }
 }

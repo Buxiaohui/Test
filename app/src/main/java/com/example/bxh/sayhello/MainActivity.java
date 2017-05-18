@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.color.ColorActivity;
+import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
@@ -30,8 +31,7 @@ import java.net.URL;
 
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
-    @ViewInject(value = R.id.text1, value3 = 0)
-    private TextView mTextView1;
+    DefineView defineView;
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -42,89 +42,26 @@ public class MainActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            //floatEvaluator.evaluate(0.01f,0.0f,1.0f);
-            defineViewVal++;
-            if(defineViewVal > maxVal){
-                defineViewVal = 0;
-            }
-            sendEmptyMessageDelayed(0,10);
-            defineView.setVal(defineViewVal/maxVal);
             Log.i(TAG, "handleMessage");
         }
     };
-    float maxVal = 100.0f;
-    float defineViewVal;
+    @ViewInject(value = R.id.text1, value3 = 0)
+    private TextView mTextView1;
     @ViewInject(value = R.id.text2, value3 = 0)
     private TextView mTextView2;
-    DefineView defineView;
-    FloatEvaluator floatEvaluator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
-        mTextView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ColorActivity.class));
-            }
-        });
-        IntegerTest.testVal();
-         defineView = (DefineView) findViewById(R.id.defineView);
-        handler.sendEmptyMessage(0);
-         floatEvaluator = new FloatEvaluator(){
-            @Override
-            public Float evaluate(float fraction, Number startValue, Number endValue) {
+        defineView = (DefineView) findViewById(R.id.defineView);
+    }
 
-                float val = super.evaluate(fraction, startValue, endValue);
-                Log.i(TAG, "BBBBB evaluate val="+val);
-                return val;
-            }
-        };
-
-
-        //testThread();
-        //testHtmlTextView1();
-        //testHtmlTextView2();
-        //testClone();
-        //handler.sendEmptyMessageDelayed(1, 2000);
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i(TAG,"run in post");
-//            }
-//        });
-        //testClassInit();
-        //testNestedInit();
-        //testAlgorithms();
-        //test();
-        //TestAlgorithms.testPrintNodeListFromTail2Head();
-        //Tree.test();
-        //StackToQueue.test();
-        //TestAlgorithms.string2String();
-        //testFibonacci();
-        //PlaneLinePointsNum.testPoints();
-        //TestAlgorithms.getNumOfOneInBinery();
-        //TestAlgorithms.findSpecialNum();
-        //TestAlgorithms.testGetExponentOfNum01();
-        //TestAlgorithms.testGetAdd();
-        //TestAlgorithms.printMatrix();
-        //MergeNodelist.testMergeList();
-        //Sort.test();
-        //StringTest.get01();
-        //new B();
-        //OtherTest.test();
-
-        //TestAlgorithms.testFindValueInMatrix();
-
-        //startActivity(new Intent(this,TestActivityPrefrence.class));
-        //Sort.test();
-        //HeapSort.sortTest();
-        //new StringTest().test();
-        //MergeNodelist.testMergeList();
-        //OtherTest.testInteger();
-        //testWebView();
-        System.out.println("classTest----" + ChildClass.staticField);
+    private void testIpc() {
+        Intent intent = new Intent(this, IpcTestService.class);
+        intent.putExtra("args", 1);
+        startService(intent);
     }
 
     private void testFibonacci() {
@@ -235,76 +172,6 @@ public class MainActivity extends Activity {
 
     private void testThread() {
         new ThreadTest().test();
-    }
-
-    void testWebView() {
-        WebView webView = (WebView) findViewById(R.id.webview);
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setDomStorageEnabled(true);
-        settings.setAllowFileAccess(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setDomStorageEnabled(true);
-
-        webView.loadUrl("https://www.baidu.com");
-        webView.setWebViewClient(new WebViewClient() {
-                                     @Override
-                                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                         if (url.startsWith("http")) {
-                                             return false;
-                                         }
-                                         return super.shouldOverrideUrlLoading(view, url);
-                                     }
-
-                                     @Override
-                                     public void onPageFinished(WebView view, String url) {
-                                         super.onPageFinished(view, url);
-                                     }
-
-                                     @Override
-                                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                                         super.onPageStarted(view, url, favicon);
-                                     }
-
-                                     @Override
-                                     public void onLoadResource(WebView view, String url) {
-                                         super.onLoadResource(view, url);
-                                     }
-
-                                     @Override
-                                     public void onPageCommitVisible(WebView view, String url) {
-                                         super.onPageCommitVisible(view, url);
-                                     }
-                                 }
-
-
-        );
-
-    }
-
-    class A {
-        private int i = 1;
-
-        public A() {
-            print();
-        }
-
-        public void print() {
-            System.out.println("base i=" + i);
-        }
-    }
-
-    class B extends A {
-        private int i = 1;
-
-        public B() {
-            i = 2;
-        }
-
-        public void print() {
-            System.out.println("child i=" + i);
-        }
-
     }
 
 }

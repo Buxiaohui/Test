@@ -4,12 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_CHECKIN_PROPERTIES" />
+
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".MyApp"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -27,7 +28,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestActivity"
+        <activity
+            android:name=".TestActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged">
             <intent-filter>
@@ -44,6 +46,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".ipc.IpcTestService"
+            android:process="bxh.test.ipc"></service>
+        <provider
+            android:authorities="com.example.bxh.sayhello.ipc"
+            android:name=".ipc.DataProvider"></provider>
     </application>
 
 </manifest>
