@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.color.ColorActivity;
+import com.example.bxh.sayhello.ipc.IpcTestService;
+import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
@@ -128,6 +130,13 @@ public class MainActivity extends Activity {
         testWebView();
         //System.out.println("classTest----" + ChildClass.staticField);
         //TestAlgorithms.testMergeSequentialArray();
+        defineView = (DefineView) findViewById(R.id.defineView);
+    }
+
+    private void testIpc() {
+        Intent intent = new Intent(this, IpcTestService.class);
+        intent.putExtra("args", 1);
+        startService(intent);
     }
 
     private void testFibonacci() {
@@ -243,21 +252,7 @@ public class MainActivity extends Activity {
     void testWebView() {
         WebView webView = (WebView) findViewById(R.id.webview);
         new WebViewTest(webView).testWebView();
-        LinearLayout container = (LinearLayout)findViewById(R.id.activity_main);
-        int childCount = container.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = container.getChildAt(i);
-            if(view instanceof WebView){
-                view.setVisibility(View.VISIBLE);
-            }else{
-                view.setVisibility(View.GONE);
-            }
-        }
     }
-
-
-
-
 
     class A {
         private int i = 1;
