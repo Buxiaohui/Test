@@ -1,6 +1,7 @@
 package com.example.bxh.sayhello;
 
 import android.app.Application;
+import android.content.Context;
 
 import org.xutils.x;
 
@@ -9,9 +10,11 @@ import org.xutils.x;
  */
 
 public class MyApp extends Application{
+    public static Context context;
     @Override
     public void onCreate() {
         super.onCreate();
-        x.Ext.init(this);
+        context = this;
+        //x.Ext.init(this);
     }
 }

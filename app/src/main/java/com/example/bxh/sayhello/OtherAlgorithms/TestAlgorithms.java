@@ -19,11 +19,19 @@ import java.util.Random;
 
 public class TestAlgorithms {
     private final static String TAG = "TestAlgorithms";
-
+    private static final int[][] matrix = {
+            {1, 2, 4, 5, 6, 7},
+            {3, 4, 7, 8, 9, 10},
+            {4, 5, 8, 12, 14, 16},
+            {4, 6, 9, 14, 15, 17},
+    };
     /**
      * 输入一个链表，从尾到头打印链表每个节点的值。
      */
     public static ArrayList<Integer> listNodes = new ArrayList<>();
+
+    /*************************************************/
+
 
     public static double test02(int N) {
         Log.d(TAG, "test01 N=" + N);
@@ -57,7 +65,7 @@ public class TestAlgorithms {
         }
         return false;
     }
-    /*************************************************/
+
     /***********************
      * start
      *******************/
@@ -445,7 +453,7 @@ public class TestAlgorithms {
                 } else {
                     for (int j = columnCount - 1; j >= 0; j--) {
                         if (key == matrix[i][j]) {
-                            Log.i("testFindValueInMatrix", "testFindValueInMatrix01 find it "+"("+i+","+j+")");
+                            Log.i("testFindValueInMatrix", "testFindValueInMatrix01 find it " + "(" + i + "," + j + ")");
                             return true;
                         }
                     }
@@ -456,31 +464,22 @@ public class TestAlgorithms {
         return false;
     }
 
-
-
-    public static boolean testFindValueInMatrix03(int[][] matrix,int key){
+    public static boolean testFindValueInMatrix03(int[][] matrix, int key) {
         Log.i("testFindValueInMatrix", "testFindValueInMatrix03 key=" + key);
         int i = 0, j = matrix[0].length - 1;
         int var = matrix[i][j];
-        while (i < matrix.length && j >= 0){
+        while (i < matrix.length && j >= 0) {
             if (var == key) {
                 Log.i("testFindValueInMatrix", "testFindValueInMatrix03 find it " + "(" + i + "," + j + ")");
                 return true;
-            }else if (var < key) {
+            } else if (var < key) {
                 var = matrix[++i][j];
-            }else {
+            } else {
                 var = matrix[i][--j];
             }
         }
         return false;
     }
-
-    private static final int[][] matrix = {
-            {1, 2, 4, 5,  6,  7 },
-            {3, 4, 7, 8,  9,  10},
-            {4, 5, 8, 12, 14, 16},
-            {4, 6, 9, 14, 15, 17},
-    };
 
     public static boolean testFindValueInMatrix02(
             int left,
@@ -490,34 +489,34 @@ public class TestAlgorithms {
             int[][] matrix,
             int key) {
         Log.i("testFindValueInMatrix", "testFindValueInMatrix02 key=" + key);
-        int midCol =  (left+right)>>1;
-        int midRow =  (top+bottom)>>1;
-        Log.i("testFindValueInMatrix", "testFindValueInMatrix02 left="+left+
-                "--right="+right+
-                "--top="+top+
-                "--bottom="+bottom+
-                "--midCol="+midCol+
-                "--midRow="+midRow);
+        int midCol = (left + right) >> 1;
+        int midRow = (top + bottom) >> 1;
+        Log.i("testFindValueInMatrix", "testFindValueInMatrix02 left=" + left +
+                "--right=" + right +
+                "--top=" + top +
+                "--bottom=" + bottom +
+                "--midCol=" + midCol +
+                "--midRow=" + midRow);
         Log.i("testFindValueInMatrix", "testFindValueInMatrix02 midValue=" + matrix[midRow][midCol]);
-        if(left>right || top>bottom || midCol > right || midRow > bottom){
+        if (left > right || top > bottom || midCol > right || midRow > bottom) {
             return false;
         }
-        if(key > matrix[bottom][right]){
+        if (key > matrix[bottom][right]) {
             return false;
-        }else if(key < matrix[top][left]){
+        } else if (key < matrix[top][left]) {
             return false;
-        }else{
+        } else {
 
-            if(key>matrix[midRow][midCol]){
+            if (key > matrix[midRow][midCol]) {
                 return testFindValueInMatrix02(
-                        midCol+1,
-                         right,
-                        midRow+1,
+                        midCol + 1,
+                        right,
+                        midRow + 1,
                         bottom,
                         matrix,
                         key) ||
                         testFindValueInMatrix02(
-                                midCol+1,
+                                midCol + 1,
                                 right,
                                 top,
                                 midRow,
@@ -526,34 +525,34 @@ public class TestAlgorithms {
                         testFindValueInMatrix02(
                                 left,
                                 midCol,
-                                midRow+1,
-                                top+bottom,
+                                midRow + 1,
+                                top + bottom,
                                 matrix,
                                 key);
-            }else if (key<matrix[midRow][midCol]){
+            } else if (key < matrix[midRow][midCol]) {
                 return testFindValueInMatrix02(
                         left,
-                        midCol-1,
+                        midCol - 1,
                         top,
-                        midRow-1,
+                        midRow - 1,
                         matrix,
                         key) ||
                         testFindValueInMatrix02(
                                 midCol,
                                 right,
                                 top,
-                                midRow-1,
+                                midRow - 1,
                                 matrix,
                                 key) ||
                         testFindValueInMatrix02(
                                 left,
-                                midCol-1,
+                                midCol - 1,
                                 midRow,
                                 bottom,
                                 matrix,
                                 key);
-            }else{
-                Log.i("testFindValueInMatrix", "testFindValueInMatrix02 find it "+"("+(midRow)+","+(midCol)+")");
+            } else {
+                Log.i("testFindValueInMatrix", "testFindValueInMatrix02 find it " + "(" + (midRow) + "," + (midCol) + ")");
                 return true;
             }
         }
@@ -562,7 +561,46 @@ public class TestAlgorithms {
     public static void testFindValueInMatrix() {
         //testFindValueInMatrix01(matrix, 14);
         //testFindValueInMatrix03(matrix, 14);
-        testFindValueInMatrix02(0,matrix[0].length-1,0,matrix.length-1,matrix, 9);
+        testFindValueInMatrix02(0, matrix[0].length - 1, 0, matrix.length - 1, matrix, 9);
+    }
+
+    /**
+     * 合并两个有序（递增）数组,保持有序
+     * */
+    public static void testMergeSequentialArray() {
+        int[] b1 = {1, 3, 9, 11};
+        int[] b2 = {2, 3, 8, 10, 12};
+        int n1 = 0;
+        int n2 = 0;
+        int nFinal = 0;
+        int[] finalArr = new int[b1.length + b2.length];
+        while (nFinal < finalArr.length) {
+            int temp2 = n2 < b2.length ? b2[n2] : -1;
+            int temp1 = n1 < b1.length ? b1[n1] : temp2;
+            if (temp1 < temp2) {
+                finalArr[nFinal] = temp1;
+                n1++;
+            } else {
+                finalArr[nFinal] = temp2;
+                n2++;
+            }
+            nFinal++;
+            Log.i(TAG, "nFinal is " + nFinal + " ..n1 is " + n1 + " ..n2 is " + n2);
+            printArray(finalArr);
+        }
+
+
+    }
+    public static void printArray(int[] a){
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < a.length; i++) {
+            s.append(a[i]).append(" ");
+        }
+        Log.i(TAG, "finalArr=" + s);
+    }
+    public static void mergeSequentialArray() {
+
+
     }
 
     /**
@@ -591,6 +629,4 @@ public class TestAlgorithms {
         if (count * 2 > length) return num;
         return 0;
     }
-
-
 }
