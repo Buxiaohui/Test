@@ -6,12 +6,43 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by bxh on 1/12/17.
  */
 
 public class OtherTest {
+    public static void testHash(){
+            long l1 = (long) ((1L << 31) * (Math.sqrt(5) - 1));
+            System.out.println("testHash -- as 32 bit unsigned: " + l1);
+            int i1 = (int) l1;
+            System.out.println("testHash -- as 32 bit signed:   " + i1);
+            System.out.println("testHash -- MAGIC = " + 0x61c88647);
+    }
+    public int getThreadLocalHashCode() {
+        return threadLocalHashCode;
+    }
+
+    public final int threadLocalHashCode = nextHashCode();
+    public static AtomicInteger nextHashCode =
+            new AtomicInteger();
+
+    /**
+     * The difference between successively generated hash codes - turns
+     * implicit sequential thread-local IDs into near-optimally spread
+     * multiplicative hash values for power-of-two-sized tables.
+     */
+    private static final int HASH_INCREMENT = 0x61c88647;
+
+    /**
+     * Returns the next hash code.
+     */
+    public static int nextHashCode() {
+        return nextHashCode.getAndAdd(HASH_INCREMENT);
+    }
+
+
     private static final String TAG = "OtherTest";
     static final int[] a = {0,1,2,3,4,5};
     public static void test(){

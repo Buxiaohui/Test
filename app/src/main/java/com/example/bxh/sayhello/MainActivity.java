@@ -26,7 +26,9 @@ import com.example.bxh.sayhello.inject.ViewInject;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.sometest.ChildClass;
 import com.example.bxh.sayhello.sometest.IntegerTest;
+import com.example.bxh.sayhello.sometest.OtherTest;
 import com.example.bxh.sayhello.sometest.ThreadTest;
+import com.example.bxh.sayhello.sometest.ThreadlocalTest;
 import com.example.bxh.sayhello.widgets.DefineView;
 
 import java.net.URL;
@@ -127,10 +129,11 @@ public class MainActivity extends Activity {
         //new StringTest().test();
         //MergeNodelist.testMergeList();
         //OtherTest.testInteger();
-        testWebView();
+        //testWebView();
         //System.out.println("classTest----" + ChildClass.staticField);
         //TestAlgorithms.testMergeSequentialArray();
         defineView = (DefineView) findViewById(R.id.defineView);
+        testThreadLocalStatic();
     }
 
     private void testIpc() {
@@ -138,7 +141,22 @@ public class MainActivity extends Activity {
         intent.putExtra("args", 1);
         startService(intent);
     }
+    private void testThreadLocal(){
+        new ThreadlocalTest().test();
+    }
 
+    public void testThreadLocalStatic(){
+        OtherTest.testHash();
+        OtherTest[] a = new OtherTest[4];
+        for (int i = 0; i < 4; i++) {
+            a[i] = new OtherTest();
+            Log.i(TAG,"OtherTest.nextHashCode is "+a[i].threadLocalHashCode);
+        }
+        Log.i(TAG,"----OtherTest.nextHashCode---");
+        for (int i = 0; i < 4; i++) {
+            Log.i(TAG,"OtherTest.nextHashCode is "+a[i].threadLocalHashCode);
+        }
+    }
     private void testFibonacci() {
         for (int i = 0; i < 10; i++) {
             System.out.println("fibonacci i=" + i + "--value=" + TestAlgorithms.fibonacci(i));
