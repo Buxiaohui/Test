@@ -3,10 +3,12 @@ package com.example.bxh.sayhello.otheralgorithms;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.bxh.sayhello.Utils;
 import com.example.bxh.sayhello.node.Node;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -566,7 +568,7 @@ public class TestAlgorithms {
 
     /**
      * 合并两个有序（递增）数组,保持有序
-     * */
+     */
     public static void testMergeSequentialArray() {
         int[] b1 = {1, 3, 9, 11};
         int[] b2 = {2, 3, 8, 10, 12};
@@ -591,13 +593,15 @@ public class TestAlgorithms {
 
 
     }
-    public static void printArray(int[] a){
+
+    public static void printArray(int[] a) {
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < a.length; i++) {
             s.append(a[i]).append(" ");
         }
         Log.i(TAG, "finalArr=" + s);
     }
+
     public static void mergeSequentialArray() {
 
 
@@ -629,4 +633,30 @@ public class TestAlgorithms {
         if (count * 2 > length) return num;
         return 0;
     }
+
+
+    /**
+     * 早上视频面试了snpachat，面试只有一道题，线上写完并运行成功，题目是：
+     * n个人，每个人带一个礼物，要求用所有礼物随机给每个人分配一个礼物，但不能是他自己带来的，输出一个map序列
+     */
+    public static class TestMap {
+        HashMap<Integer, Integer> presentMap = new HashMap<Integer, Integer>();
+        int[] people = {0, 1, 2, 3, 4, 5, 6};
+
+        public void test() {
+            java.util.Random random = new java.util.Random();// 定义随机类
+            while (presentMap.size() != people.length) {
+                int randomNum = random.nextInt(people.length);// 返回[0,6)集合中的整数，注意不包括10
+                for (int x = 0; x < people.length; x++) {
+                    if (!presentMap.containsKey(x) && !presentMap.containsValue(randomNum) && randomNum != x) {
+                            presentMap.put(x, randomNum);
+                    }
+                }
+            }
+            Utils.showMapEntry(presentMap,"presentMap");
+        }
+
+    }
+
+
 }

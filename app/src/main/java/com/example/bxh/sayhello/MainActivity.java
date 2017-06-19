@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
         //TestAlgorithms.testFindValueInMatrix();
 
         //startActivity(new Intent(this,TestActivityPrefrence.class));
-        Sort.test();
+        //Sort.test();
         //HeapSort.sortTest();
         //new StringTest().test();
         //MergeNodelist.testMergeList();
@@ -132,8 +132,9 @@ public class MainActivity extends Activity {
         //testWebView();
         //System.out.println("classTest----" + ChildClass.staticField);
         //TestAlgorithms.testMergeSequentialArray();
-//        defineView = (DefineView) findViewById(R.id.defineView);
-//        testThreadLocalStatic();
+        //defineView = (DefineView) findViewById(R.id.defineView);
+        //testThreadLocalStatic();
+        //testMap();
     }
 
     private void testIpc() {
@@ -141,22 +142,24 @@ public class MainActivity extends Activity {
         intent.putExtra("args", 1);
         startService(intent);
     }
-    private void testThreadLocal(){
+
+    private void testThreadLocal() {
         new ThreadlocalTest().test();
     }
 
-    public void testThreadLocalStatic(){
+    public void testThreadLocalStatic() {
         OtherTest.testHash();
         OtherTest[] a = new OtherTest[4];
         for (int i = 0; i < 4; i++) {
             a[i] = new OtherTest();
-            Log.i(TAG,"OtherTest.nextHashCode is "+a[i].threadLocalHashCode);
+            Log.i(TAG, "OtherTest.nextHashCode is " + a[i].threadLocalHashCode);
         }
-        Log.i(TAG,"----OtherTest.nextHashCode---");
+        Log.i(TAG, "----OtherTest.nextHashCode---");
         for (int i = 0; i < 4; i++) {
-            Log.i(TAG,"OtherTest.nextHashCode is "+a[i].threadLocalHashCode);
+            Log.i(TAG, "OtherTest.nextHashCode is " + a[i].threadLocalHashCode);
         }
     }
+
     private void testFibonacci() {
         for (int i = 0; i < 10; i++) {
             System.out.println("fibonacci i=" + i + "--value=" + TestAlgorithms.fibonacci(i));
@@ -270,6 +273,20 @@ public class MainActivity extends Activity {
     void testWebView() {
         WebView webView = (WebView) findViewById(R.id.webview);
         new WebViewTest(webView).testWebView();
+        LinearLayout container = (LinearLayout) findViewById(R.id.activity_main);
+        int childCount = container.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = container.getChildAt(i);
+            if (view instanceof WebView) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    void testMap() {
+        new TestAlgorithms.TestMap().test();
     }
 
     class A {
