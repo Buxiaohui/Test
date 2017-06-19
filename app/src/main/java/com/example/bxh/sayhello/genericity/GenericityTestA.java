@@ -19,6 +19,16 @@ public class GenericityTestA<T> {
     List<? super T> list1;
     List<? extends T> list2;
 
+    public List<?> getList3() {
+        return list3;
+    }
+
+    public void setList3(List<?> list3) {
+        this.list3 = list3;
+    }
+
+    List<?> list3;
+
     public List<? super T> getList1() {
         return list1;
     }
@@ -45,6 +55,12 @@ public class GenericityTestA<T> {
             Log.i(TAG,"list2="+ Arrays.toString(list2.toArray()));
         }else{
             Log.i(TAG,"list2=null");
+        }
+
+        if(list3 != null){
+            Log.i(TAG,"list3="+ Arrays.toString(list3.toArray()));
+        }else{
+            Log.i(TAG,"list3=null");
         }
     }
 }

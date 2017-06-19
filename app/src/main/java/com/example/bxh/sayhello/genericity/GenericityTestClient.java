@@ -42,7 +42,19 @@ public class GenericityTestClient {
         list2.add(new GenericityChildA("GenericityChildA 22222"));
         genericityTest.setList2(list2);
 
+
+
+        /**************List<?>**************/
+        List list3 = new ArrayList();
+        list3.add(1);
+        list3.add("string");
+        genericityTest.setList3(list3);
+        //finally print
         genericityTest.printList();
+
+        //List<?> list3 = new ArrayList();
+        //list3.add(11);   //error
+        //list3.add("string11"); //error
     }
 
 
