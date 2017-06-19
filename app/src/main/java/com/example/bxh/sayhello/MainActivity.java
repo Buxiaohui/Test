@@ -29,6 +29,7 @@ import com.example.bxh.sayhello.sometest.IntegerTest;
 import com.example.bxh.sayhello.sometest.OtherTest;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
+import com.example.bxh.sayhello.sort.Sort;
 import com.example.bxh.sayhello.widgets.DefineView;
 
 import java.net.URL;
@@ -116,7 +117,6 @@ public class MainActivity extends Activity {
         //TestAlgorithms.testGetAdd();
         //TestAlgorithms.printMatrix();
         //MergeNodelist.testMergeList();
-        //Sort.test();
         //StringTest.get01();
         //new B();
         //OtherTest.test();
@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
         //TestAlgorithms.testFindValueInMatrix();
 
         //startActivity(new Intent(this,TestActivityPrefrence.class));
-        //Sort.test();
+        Sort.test();
         //HeapSort.sortTest();
         //new StringTest().test();
         //MergeNodelist.testMergeList();
@@ -132,8 +132,8 @@ public class MainActivity extends Activity {
         //testWebView();
         //System.out.println("classTest----" + ChildClass.staticField);
         //TestAlgorithms.testMergeSequentialArray();
-        defineView = (DefineView) findViewById(R.id.defineView);
-        testThreadLocalStatic();
+//        defineView = (DefineView) findViewById(R.id.defineView);
+//        testThreadLocalStatic();
     }
 
     private void testIpc() {

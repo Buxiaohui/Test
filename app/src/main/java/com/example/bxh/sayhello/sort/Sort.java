@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+
 /**
  * Created by bxh on 1/7/17.
  */
@@ -154,7 +156,7 @@ public class Sort {
 //        directInsertSort3(array.clone());
 //        halfInsertSort1(array.clone());
 //        bubbleSort1(array.clone());
-        new Sort().quick_sort1(a,0,a.length-1);
+        new Sort().quick_sort1(array.clone(),0,array.length-1);
     }
     static int[] a = {72,6,57,88,60,42,83,73,48,85};
 
@@ -164,31 +166,31 @@ public class Sort {
      * */
     int AdjustArray(int a[], int left, int right) {
         int i = left, j = right;
-        int x = a[left]; //a[left]即a[i]就是第一个坑
-        System.out.println("quick_sort1 x="+x);
+        int baselineValue = a[left];
+        System.out.println("quick_sort1 x="+baselineValue);
         while (i < j) {
-            // 从右向左找小于x的数来填a[i]
-            while (i < j && a[j] >= x) {
+            // 从右向左找 >=baselineValue 的数,将其与 基准数 交换
+            while (i < j && a[j] >= baselineValue) {
                 j--;
             }
             if (i < j) {
-                a[i] = a[j]; //将a[j]填到a[i]中，a[j]就形成了一个新的坑
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
                 i++;
             }
 
-            // 从左向右找大于或等于x的数来填a[j]
-            while (i < j && a[i] < x) {
+            // 从左向右找 <baselineValue 的数，将其与 基准数 交换
+            while (i < j && a[i] < baselineValue) {
                 i++;
             }
             if (i < j) {
-                a[j] = a[i]; //将a[i]填到a[j]中，a[i]就形成了一个新的坑
+                int temp = a[j];
+                a[j] = a[i];
+                a[i] = temp;
                 j--;
             }
-            //上述步骤 交换a[i] & a[j]
         }
-        //退出时，i&j 碰面，i等于j。将x填到这个坑中。
-        a[i] = x;
-
         return i;
     }
 
@@ -196,8 +198,7 @@ public class Sort {
      * 快速排序
      *
      * */
-    void quick_sort1(int[] aOri, int l, int r) {
-        int[] a =aOri.clone();
+    void quick_sort1(int[] a, int l, int r) {
         if (l < r) {
             int i = AdjustArray(a, l, r);//先成挖坑填数法调整s[]
             //i 的左侧 < a[i] ,右侧>a[i]
@@ -205,10 +206,7 @@ public class Sort {
             quick_sort1(a, l, i - 1); // 递归调用
             quick_sort1(a, i + 1, r);
         }
-        System.out.println("quick_sort1="+new Gson().toJson(a));
+        System.out.println("quick_sort1="+ Arrays.toString(a));
     }
-
-
-
 
 }
