@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.color.ColorActivity;
+import com.example.bxh.sayhello.factory.FactoryClient;
+import com.example.bxh.sayhello.genericity.GenericityTestClient;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
@@ -135,6 +137,8 @@ public class MainActivity extends Activity {
         //defineView = (DefineView) findViewById(R.id.defineView);
         //testThreadLocalStatic();
         //testMap();
+        //FactoryClient.test();
+        GenericityTestClient.getGenericityTest();
     }
 
     private void testIpc() {
