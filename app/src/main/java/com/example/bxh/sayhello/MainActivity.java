@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bxh.sayhello.abstractfactory.AbstractFactoryTestClient;
 import com.example.bxh.sayhello.color.ColorActivity;
 import com.example.bxh.sayhello.factory.FactoryClient;
 import com.example.bxh.sayhello.genericity.GenericityTestClient;
@@ -138,7 +139,8 @@ public class MainActivity extends Activity {
         //testThreadLocalStatic();
         //testMap();
         //FactoryClient.test();
-        GenericityTestClient.getGenericityTest();
+        //GenericityTestClient.getGenericityTest();
+        AbstractFactoryTestClient.test();
     }
 
     private void testIpc() {
