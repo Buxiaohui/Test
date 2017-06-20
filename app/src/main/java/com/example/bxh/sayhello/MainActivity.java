@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.bxh.sayhello.abstractfactory.AbstractFactoryTestClient;
 import com.example.bxh.sayhello.color.ColorActivity;
+import com.example.bxh.sayhello.command.CommandActivity;
 import com.example.bxh.sayhello.factory.FactoryClient;
 import com.example.bxh.sayhello.genericity.GenericityTestClient;
 import com.example.bxh.sayhello.ipc.IpcTestService;
@@ -140,7 +141,8 @@ public class MainActivity extends Activity {
         //testMap();
         //FactoryClient.test();
         //GenericityTestClient.getGenericityTest();
-        AbstractFactoryTestClient.test();
+        //AbstractFactoryTestClient.test();
+        CommandActivity.toCommandActivity(this);
     }
 
     private void testIpc() {
