@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.R;
@@ -43,7 +44,7 @@ public class ColorActivity extends Activity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
+            ListView l;
             super.handleMessage(msg);
             if(!flag){
                 offset++;

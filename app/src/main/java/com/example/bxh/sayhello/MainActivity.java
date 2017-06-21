@@ -3,7 +3,6 @@ package com.example.bxh.sayhello;
 import android.animation.FloatEvaluator;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,59 +10,28 @@ import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.bxh.sayhello.abstractfactory.AbstractFactoryTestClient;
-import com.example.bxh.sayhello.color.ColorActivity;
-import com.example.bxh.sayhello.command.CommandActivity;
-import com.example.bxh.sayhello.factory.FactoryClient;
-import com.example.bxh.sayhello.genericity.GenericityTestClient;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
-import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.sometest.ChildClass;
-import com.example.bxh.sayhello.sometest.IntegerTest;
+import com.example.bxh.sayhello.sometest.EnclosingClass;
 import com.example.bxh.sayhello.sometest.OtherTest;
+import com.example.bxh.sayhello.sometest.Person;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
-import com.example.bxh.sayhello.sort.Sort;
+import com.example.bxh.sayhello.sometest.WebViewTest;
 import com.example.bxh.sayhello.widgets.DefineView;
 
 import java.net.URL;
 
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
-    float maxVal = 100.0f;
-    float defineViewVal;
-    DefineView defineView;
-    Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            Log.i(TAG, "msg callback");
-            return false;
-        }
-    }) {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            //floatEvaluator.evaluate(0.01f,0.0f,1.0f);
-            defineViewVal++;
-            if (defineViewVal > maxVal) {
-                defineViewVal = 0;
-            }
-            sendEmptyMessageDelayed(0, 10);
-            defineView.setVal(defineViewVal / maxVal);
-            Log.i(TAG, "handleMessage");
-        }
-    };
-    FloatEvaluator floatEvaluator;
+
     @ViewInject(value = R.id.text1, value3 = 0)
     private TextView mTextView1;
     @ViewInject(value = R.id.text2, value3 = 0)
@@ -74,75 +42,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
-//        mTextView1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, ColorActivity.class));
-//            }
-//        });
-//        IntegerTest.testVal();
-//        defineView = (DefineView) findViewById(R.id.defineView);
-//        handler.sendEmptyMessage(0);
-//        floatEvaluator = new FloatEvaluator() {
-//            @Override
-//            public Float evaluate(float fraction, Number startValue, Number endValue) {
-//
-//                float val = super.evaluate(fraction, startValue, endValue);
-//                Log.i(TAG, "BBBBB evaluate val=" + val);
-//                return val;
-//            }
-//        };
-
-
-        //testThread();
-        //testHtmlTextView1();
-        //testHtmlTextView2();
-        //testClone();
-        //handler.sendEmptyMessageDelayed(1, 2000);
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.i(TAG,"run in post");
-//            }
-//        });
-        //testClassInit();
-        //testNestedInit();
-        //testAlgorithms();
-        //test();
-        //TestAlgorithms.testPrintNodeListFromTail2Head();
-        //Tree.test();
-        //StackToQueue.test();
-        //TestAlgorithms.string2String();
-        //testFibonacci();
-        //PlaneLinePointsNum.testPoints();
-        //TestAlgorithms.getNumOfOneInBinery();
-        //TestAlgorithms.findSpecialNum();
-        //TestAlgorithms.testGetExponentOfNum01();
-        //TestAlgorithms.testGetAdd();
-        //TestAlgorithms.printMatrix();
-        //MergeNodelist.testMergeList();
-        //StringTest.get01();
-        //new B();
-        //OtherTest.test();
-
-        //TestAlgorithms.testFindValueInMatrix();
-
-        //startActivity(new Intent(this,TestActivityPrefrence.class));
-        //Sort.test();
-        //HeapSort.sortTest();
-        //new StringTest().test();
-        //MergeNodelist.testMergeList();
-        //OtherTest.testInteger();
-        //testWebView();
-        //System.out.println("classTest----" + ChildClass.staticField);
-        //TestAlgorithms.testMergeSequentialArray();
-        //defineView = (DefineView) findViewById(R.id.defineView);
-        //testThreadLocalStatic();
-        //testMap();
-        //FactoryClient.test();
-        //GenericityTestClient.getGenericityTest();
-        //AbstractFactoryTestClient.test();
-        CommandActivity.toCommandActivity(this);
     }
 
     private void testIpc() {
@@ -219,22 +118,7 @@ public class MainActivity extends Activity {
     }
 
     private void testClone() {
-
-        /**
-         * 对象的克隆---对象的复制，完整的一个复制对象
-         */
-        Person p1 = new Person("张三");
-        Person p2 = null;
-        try {
-            p2 = (Person) p1.clone();//向下转型----P2没有被实例化
-        } catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        p2.setName("李四");
-        System.out.println("testClone 原始对象：" + p1);
-        System.out.println("testClone 克隆之后的对象：" + p2);
-
+        Person.testClone();
     }
 
     private void testHtmlTextView1() {
@@ -295,31 +179,6 @@ public class MainActivity extends Activity {
 
     void testMap() {
         new TestAlgorithms.TestMap().test();
-    }
-
-    class A {
-        private int i = 1;
-
-        public A() {
-            print();
-        }
-
-        public void print() {
-            System.out.println("base i=" + i);
-        }
-    }
-
-    class B extends A {
-        private int i = 1;
-
-        public B() {
-            i = 2;
-        }
-
-        public void print() {
-            System.out.println("child i=" + i);
-        }
-
     }
 
 }

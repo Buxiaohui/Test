@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.bxh.gradleapplication"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+
+        }
+
+        doTestDebug{
+            initWith debug
+        }
+
+        staging.initWith(buildTypes.debug)
+        staging {
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+            buildConfigField "String", "API_URL", "\"http://staging.example.com/api\""
+        }
+    }
+
+    flavorDimensions "color", "price"
+    productFlavors {
+        red {
+            dimension "color"
+        }
+        blue {
+            dimension "color"
+        }
+        free {
+            dimension "price"
+        }
+        paid {
+            dimension "price"
+        }
+    }
+
+    sourceSets{
+        //如果加上这个配置，那么所有release的build版本，这个配置的优先级最高
+        release{
+            res.srcDir("src/main/res-blue")
+        }
+
+        red{
+            //"有"--->"与main平级"的文件目录
+            //所以可以不指定什么东西……
+        }
+
+        blue{
+            //"没有" --->"与main平级"的文件目录
+            //可以指定文件路径
+            res.srcDir("src/main/res-blue")
+            //manifest.srcFile 'src/other/AndroidManifest.xml'
+        }
+
+//        main{
+//        //默认不需要指定
+//        //所有种类的 build type 如果没有指定资源文件路径，则默认为main 的路径
+//           res.srcDir("src/main/res")
+//        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:25.3.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    //compile 'com.jakewharton:butterknife-compiler:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+}

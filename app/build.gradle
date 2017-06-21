@@ -32,15 +32,6 @@ android {
         doTestDebug{
             initWith debug
         }
-
-        staging.initWith(buildTypes.debug)
-        staging {
-            applicationIdSuffix ".staging"
-            versionNameSuffix "-staging"
-            buildConfigField "String", "API_URL", "\"http://staging.example.com/api\""
-        }
-
-
     }
 
     packagingOptions {
@@ -48,45 +39,9 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/groovy-release-info.properties'
     }
-    flavorDimensions "color", "price"
-    productFlavors {
-        red {
-            dimension "color"
-        }
-        blue {
-            dimension "color"
-        }
-        free {
-            dimension "price"
-        }
-        paid {
-            dimension "price"
-        }
-    }
 
     sourceSets{
-        //如果加上这个配置，那么所有release的build版本，这个配置的优先级最高
-        release{
-            res.srcDir("src/main/res-blue")
-        }
 
-        red{
-            //"有"--->"与main平级"的文件目录
-            //所以可以不指定什么东西……
-        }
-
-        blue{
-            //"没有" --->"与main平级"的文件目录
-            //可以指定文件路径
-            res.srcDir("src/main/res-blue")
-            //manifest.srcFile 'src/other/AndroidManifest.xml'
-        }
-
-//        main{
-            //默认不需要指定
-            //所有种类的 build type 如果没有指定资源文件路径，则默认为main 的路径
-//           res.srcDir("src/main/res")
-//        }
     }
 }
 //androidGroovy {

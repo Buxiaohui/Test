@@ -22,25 +22,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestActivityPrefrence">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".TestActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".TestActivity2">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name=".color.ColorActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
