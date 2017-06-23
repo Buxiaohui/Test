@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bxh.sayhello.dynamic.DynamicTest;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
@@ -42,6 +43,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
+        testDynamic();
     }
 
     private void testIpc() {
@@ -94,6 +96,9 @@ public class MainActivity extends Activity {
 
     }
 
+    private void testDynamic() {
+        new DynamicTest().test();
+    }
     private void testAlgorithms() {
         double result = TestAlgorithms.test02(3);
         System.out.println("TestAlgorithms-----result=" + result);
