@@ -26,6 +26,7 @@ import com.example.bxh.sayhello.sometest.Person;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
 import com.example.bxh.sayhello.sometest.WebViewTest;
+import com.example.bxh.sayhello.tree.Tree;
 import com.example.bxh.sayhello.widgets.DefineView;
 
 import java.net.URL;
@@ -43,7 +44,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
-        testDynamic();
+        Tree.test();
     }
 
     private void testIpc() {

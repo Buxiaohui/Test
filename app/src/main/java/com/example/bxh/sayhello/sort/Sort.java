@@ -17,7 +17,11 @@ public class Sort {
     private static final String TAG = "sort";
 
 
-    /*直接插入排序*/
+    /**直接插入排序
+     * 假设升序排列：从第一个元素（或第二个）开始，记为A，拿他与前面的元素相比，如果比前面的元素B小，
+     * 就把B元素到A元素之间的元素向后移动一位，
+     * 然后将元素A移动到B元素之前的位置。
+     * */
     private static void directInsertSort2(int[] a) {
         for (int i = 1; i < a.length; i++) {
             if (a[i] < a[i - 1]) {

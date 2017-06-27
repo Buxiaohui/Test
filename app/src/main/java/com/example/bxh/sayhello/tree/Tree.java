@@ -1,11 +1,8 @@
 package com.example.bxh.sayhello.tree;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -18,6 +15,13 @@ public class Tree {
     /*************************************************/
     /*********************** start *******************/
     /*************************************************/
+    /**
+     * 括号里是父节点
+     * **************G
+     * *****D********************M
+     * A******F(D)********H(M)*******Z
+     * ****E(F)
+     */
     public static int[] array = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     private static String[] pre = {"G", "D", "A", "F", "E", "M", "H", "Z"};
     private static String[] in = {"A", "D", "E", "F", "G", "H", "M", "Z"};
@@ -71,12 +75,14 @@ public class Tree {
 //        System.out.println("printNodeValue--deepNumum=" + deepNumum);
 
 //        specialTraversal(root);
-        boolean isAvl1 = isAvl(root);
-        boolean isAvl2 = isAvl(getTestAvlNode2());
-        boolean isAvl3 = isAvl(getTestAvlNode3());
-        System.out.println("printNodeValue--isAvl1=" + isAvl1);
-        System.out.println("printNodeValue--isAvl2=" + isAvl2);
-        System.out.println("printNodeValue--isAvl3=" + isAvl3);
+//        boolean isAvl1 = isAvl(root);
+//        boolean isAvl2 = isAvl(getTestAvlNode2());
+//        boolean isAvl3 = isAvl(getTestAvlNode3());
+//        System.out.println("printNodeValue--isAvl1=" + isAvl1);
+//        System.out.println("printNodeValue--isAvl2=" + isAvl2);
+//        System.out.println("printNodeValue--isAvl3=" + isAvl3);
+        int maxDistance = getMaxDistance(root);
+        System.out.println("maxDistance=" + maxDistance);
 
     }
 
@@ -158,7 +164,7 @@ public class Tree {
 
     /**
      * 知道前序遍历 与 中序遍历  还原数
-     * */
+     */
     public static Node getRootPreIn(String[] pre, String[] in) {
         if (pre == null || in == null) {
             return null;
@@ -204,8 +210,9 @@ public class Tree {
     }
 
     public static void printSingle(Node root) {
-        System.out.println("printNodeValue=====node cal="+root.valStr);
+        System.out.println("printNodeValue=====node cal=" + root.valStr);
     }
+
     public static void print(Node root) {
         System.out.println("printNodeValue=====pre=====");
         leftTraversal(root);
@@ -256,9 +263,10 @@ public class Tree {
         if (node == null) {
             return 0;
         }
-        System.out.println("printNodeValue--getNodeNum node=" +node.valStr);
+        System.out.println("printNodeValue--getNodeNum node=" + node.valStr);
         return getNodeNum(node.left) + getNodeNum(node.right) + 1;
     }
+
     /**
      * 获得深度
      * （1）如果二叉树为空，二叉树的深度为0
@@ -268,98 +276,98 @@ public class Tree {
         if (node == null) {
             return 0;
         }
-        int leftDeepNum = getNodeDeepNum(node.left)+1;
-        int rightDeepNum = getNodeDeepNum(node.right)+1;
+        int leftDeepNum = getNodeDeepNum(node.left) + 1;
+        int rightDeepNum = getNodeDeepNum(node.right) + 1;
 
-        return Math.max(leftDeepNum,rightDeepNum);
+        return Math.max(leftDeepNum, rightDeepNum);
     }
 
     /**
      * 求二叉树第K层的节点个数
-     * */
-     private static int getNodeNumAtSpecialLayer(int k,Node root){
-         if(root == null){
-             return 0;
-         }
-         if(k < 1){
-             return 0;
-         }
-         if(k == 1){
-             return 1;
-         }
-         int leftNodeNum = getNodeNumAtSpecialLayer(k-1,root.left);
-         int rightNodeNum = getNodeNumAtSpecialLayer(k-1,root.right);
-         return leftNodeNum + rightNodeNum;
-     }
+     */
+    private static int getNodeNumAtSpecialLayer(int k, Node root) {
+        if (root == null) {
+            return 0;
+        }
+        if (k < 1) {
+            return 0;
+        }
+        if (k == 1) {
+            return 1;
+        }
+        int leftNodeNum = getNodeNumAtSpecialLayer(k - 1, root.left);
+        int rightNodeNum = getNodeNumAtSpecialLayer(k - 1, root.right);
+        return leftNodeNum + rightNodeNum;
+    }
 
     /**
      * null  0 ；
      * not null ，but no child 1；
      * not null，have child，return (Num of left child tree) + (Num of right child tree)
-     *
-     * */
-    private static int calculateNoChildNodeNum(Node node){
-        if(node == null){
+     */
+    private static int calculateNoChildNodeNum(Node node) {
+        if (node == null) {
             return 0;
         }
-        if(node.left == null && node.right == null){
+        if (node.left == null && node.right == null) {
             return 1;
         }
         int leftNum = calculateNoChildNodeNum(node.left);
         int rightNum = calculateNoChildNodeNum(node.right);
-        return leftNum+rightNum;
+        return leftNum + rightNum;
     }
 
     /**
      * to judge whether one tree is same as another one
-     * */
-    private static boolean isSameStructure(Node node0,Node node1){
-        if(node0 == null && node1 == null){
+     */
+    private static boolean isSameStructure(Node node0, Node node1) {
+        if (node0 == null && node1 == null) {
             return true;
         }
-        if(node0 == null &&  node1 != null){
+        if (node0 == null && node1 != null) {
             return false;
         }
-        if(node0 != null &&  node1 == null){
+        if (node0 != null && node1 == null) {
             return false;
         }
-        return  isSameStructure(node0.left,node1.left) && isSameStructure(node0.right,node1.right);
+        return isSameStructure(node0.left, node1.left) && isSameStructure(node0.right, node1.right);
     }
+
     /**
      * 分层遍历二叉树（按层次从上往下，从左往右）
-     * */
-    private static void specialTraversal(Node node){
-        if(node == null){
+     */
+    private static void specialTraversal(Node node) {
+        if (node == null) {
             System.out.print("--null--");
             return;
         }
 
         Queue<Node> queue = new LinkedBlockingDeque<>();
-       if(node != null){
-           queue.add(node);
+        if (node != null) {
+            queue.add(node);
 
-       }
-        while (!queue.isEmpty()){
+        }
+        while (!queue.isEmpty()) {
             Node node1 = queue.poll();
             printNodeValue(node1);
-           if(node1.left !=null){
-               queue.add(node1.left);
-           }
-           if(node1.right !=null){
-               queue.add(node1.right);
-           }
-       }
+            if (node1.left != null) {
+                queue.add(node1.left);
+            }
+            if (node1.right != null) {
+                queue.add(node1.right);
+            }
+        }
     }
 
     /**
      * get image of a tree
      * 先交换上层节点，再交换下层节点
-     * */
-    private  static Node getImage(Node node){
-        if(node == null){
+     */
+    private static Node getImage(Node node) {
+        if (node == null) {
             return null;
         }
-        if(node.left == null && node.right == null){
+        if (node.left == null && node.right == null) {
             return node;
         }
         Node left = getImage(node.left);
@@ -369,17 +377,62 @@ public class Tree {
         return node;
     }
 
+    private static Node getTestAvlNode2() {
+        Node node = new Node(1);
+        node.left = new Node(2);
+        node.left.left = new Node(3);
+        return node;
+    }
+
+    private static Node getTestAvlNode3() {
+        Node node = new Node(1);
+        node.left = new Node(2);
+        return node;
+    }
+
+    /**
+     * to judge whether a tree is AVL tree
+     * (1）如果二叉树为空，返回真
+     * （2）如果二叉树不为空，如果左子树和右子树都是AVL树并且左子树和右子树高度相差不大于1，返回真，其他返回假
+     */
+    private static boolean isAvl(Node node) {
+        if (node == null) {
+            return true;
+        }
+        boolean isLeft = isAvl(node.left);
+        boolean isRight = isAvl(node.right);
+        int deepLeft = getNodeDeepNum(node.left);
+        int deepRight = getNodeDeepNum(node.right);
+        if (isLeft && isRight && Math.abs(deepLeft - deepRight) <= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 求二叉树中，两个节点的最长距离
+     */
+    public static int getMaxDistance(Node root) {
+        if (root == null) {
+            return 0;
+        } else if (root.left == null || root.right == null) {
+            return getNodeDeepNum(root);
+        } else {
+            return getNodeDeepNum(root.left) + getNodeDeepNum(root.right) + 1;//加上根节点
+        }
+    }
+
     /**
      * 已知'前序遍历' 和 '中序遍历'  的结果
      * 建树，并打印出来
      * PreOrder:         GDAFEMHZ
      * InOrder:          ADEFGHMZ
      * PostOrder:       AEFDHZMG
-     * G
-     * <p>
-     * D                  M
-     * A          (D)F    (M)H     Z
-     * (F)E
+     * 括号里是父节点
+     * **************G****************
+     * *****D********************M****
+     * A******F(D)********H(M)*******Z
+     * ****E(F)
      */
     private Node initRoot() {
         Node root = new Node("G");
@@ -392,37 +445,6 @@ public class Tree {
         root.right.left = new Node("H");
         root.left.right = new Node("Z");
         return root;
-    }
-
-    private static Node getTestAvlNode2(){
-        Node node = new Node(1);
-        node.left = new Node(2);
-        node.left.left = new Node(3);
-        return node;
-    }
-    private static Node getTestAvlNode3(){
-        Node node = new Node(1);
-        node.left = new Node(2);
-        return node;
-    }
-
-    /**
-     * to judge whether a tree is AVL tree
-     * (1）如果二叉树为空，返回真
-     *（2）如果二叉树不为空，如果左子树和右子树都是AVL树并且左子树和右子树高度相差不大于1，返回真，其他返回假
-     * */
-    private static boolean isAvl(Node node){
-        if(node == null){
-            return true;
-        }
-        boolean isLeft = isAvl(node.left);
-        boolean isRight = isAvl(node.right);
-        int deepLeft  = getNodeDeepNum(node.left);
-        int deepRight  = getNodeDeepNum(node.right);
-        if(isLeft && isRight && Math.abs(deepLeft - deepRight) <=1){
-            return true;
-        }
-        return false;
     }
 
     public static class Node {
