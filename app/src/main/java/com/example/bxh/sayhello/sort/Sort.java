@@ -11,17 +11,18 @@ import java.util.Arrays;
  */
 
 public class Sort {
-    final static int[] array = {5, 3, 7, 11, 2, 6, 4, 8};
+    final static int[] array = {5, 3, 7, 11, 2, 6, 9, 4, 8};
     final static int[] array1 = {5, 3, 2, 11};
 
     private static final String TAG = "sort";
+    static int[] a = {72, 6, 57, 88, 60, 42, 83, 73, 48, 85};
 
-
-    /**直接插入排序
+    /**
+     * 直接插入排序
      * 假设升序排列：从第一个元素（或第二个）开始，记为A，拿他与前面的元素相比，如果比前面的元素B小，
      * 就把B元素到A元素之间的元素向后移动一位，
      * 然后将元素A移动到B元素之前的位置。
-     * */
+     */
     private static void directInsertSort2(int[] a) {
         for (int i = 1; i < a.length; i++) {
             if (a[i] < a[i - 1]) {
@@ -160,18 +161,71 @@ public class Sort {
 //        directInsertSort3(array.clone());
 //        halfInsertSort1(array.clone());
 //        bubbleSort1(array.clone());
-        new Sort().quick_sort1(array.clone(),0,array.length-1);
+        new Sort().quick_sort1(array.clone(), 0, array.length - 1);
     }
-    static int[] a = {72,6,57,88,60,42,83,73,48,85};
+
+    /**
+     * 希尔排序
+     */
+    public static void shellSortTest1() {
+        int[] arg = array.clone();
+        System.out.println("shellSortTest1 begin=" + Arrays.toString(arg));
+        int i = 0, j = 0, k = 0;
+        int key = 0;
+        for ( int curStep = arg.length / 2; curStep > 0; curStep = curStep / 2) {
+            System.out.println("shellSortTest1 curStep=" + curStep);
+            for (i = 0; i < curStep; i++) {
+                //插入排序 start
+                for (k = i + curStep; k < arg.length; k += curStep) {
+                    key = arg[k];
+                    for (j = k - curStep; j >= i; j -= curStep) {
+                        if (arg[j] > key) {
+                            arg[j + curStep] = arg[j];
+                            arg[j] = key;
+                        } else {
+                            break;
+                        }
+                    }
+                }//插入排序 end
+            }
+            System.out.println("shellSortTest mid=" + Arrays.toString(arg));
+        }
+        System.out.println("shellSortTest end=" + Arrays.toString(arg));
+
+    }
+
+    /**
+     * 希尔排序,我写的错的
+     */
+    public static void shellSortTest() {
+        int[] a = array.clone();
+        System.out.println("shellSortTest begin=" + Arrays.toString(a));
+        int step = a.length;
+        while (step != 1) {
+            step = step / 2;
+            System.out.println("shellSortTest step=" + step);
+            for (int i = 0; i < step; i++) {
+                if (a[i] > a[step + i]) {
+                    int temp = a[i];
+                    a[i] = a[step + i];
+                    a[step + i] = temp;
+                }
+            }
+            System.out.println("shellSortTest mid=" + Arrays.toString(a));
+        }
+
+        choseInsertSort1(a);
+        System.out.println("shellSortTest after=" + Arrays.toString(a));
+    }
 
     /**
      * 快速排序相关方法
      * TODO 返回调整后基准数的位置
-     * */
+     */
     int AdjustArray(int a[], int left, int right) {
         int i = left, j = right;
         int baselineValue = a[left];
-        System.out.println("quick_sort1 x="+baselineValue);
+        System.out.println("quick_sort1 x=" + baselineValue);
         while (i < j) {
             // 从右向左找 >=baselineValue 的数,将其与 基准数 交换
             while (i < j && a[j] >= baselineValue) {
@@ -200,8 +254,7 @@ public class Sort {
 
     /**
      * 快速排序
-     *
-     * */
+     */
     void quick_sort1(int[] a, int l, int r) {
         if (l < r) {
             int i = AdjustArray(a, l, r);//先成挖坑填数法调整s[]
@@ -210,7 +263,7 @@ public class Sort {
             quick_sort1(a, l, i - 1); // 递归调用
             quick_sort1(a, i + 1, r);
         }
-        System.out.println("quick_sort1="+ Arrays.toString(a));
+        System.out.println("quick_sort1=" + Arrays.toString(a));
     }
 
 }

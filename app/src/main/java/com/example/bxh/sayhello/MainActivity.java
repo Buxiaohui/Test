@@ -1,12 +1,9 @@
 package com.example.bxh.sayhello;
 
-import android.animation.FloatEvaluator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +23,8 @@ import com.example.bxh.sayhello.sometest.Person;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
 import com.example.bxh.sayhello.sometest.WebViewTest;
-import com.example.bxh.sayhello.tree.Tree;
-import com.example.bxh.sayhello.widgets.DefineView;
+import com.example.bxh.sayhello.sort.Sort;
+import com.example.bxh.sayhello.tree.MinHeap;
 
 import java.net.URL;
 
@@ -44,7 +41,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
-        Tree.test();
+        MinHeap.test();
     }
 
     private void testIpc() {

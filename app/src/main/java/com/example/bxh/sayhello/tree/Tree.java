@@ -3,6 +3,8 @@ package com.example.bxh.sayhello.tree;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -34,13 +36,67 @@ public class Tree {
     /**
      * 把数组变成二叉树
      */
-    public static ArrayList<Node> sortF() {
+    public static ArrayList<Node> array2Tree1() {
+        int[] arr = array.clone();
         ArrayList<Node> list = new ArrayList<Node>();
-        for (int i = 0; i < array.length; i++) {
-            list.add(new Node(array[i]));
+        for (int i = 0; i < arr.length; i++) {
+            list.add(new Node(arr[i]));
+        }
+        //以上，构造各个节点
+        /**
+         * 树上面。第i个元素的：
+         * 左孩子，在数组中的序号是2*i+1
+         * 右孩子，在数组中的序号是2*i+2
+         * 所以
+         * 2*i+2<=length
+         * 即
+         * 2*(i+1)<=length
+         * 0<= i <= length/2 - 1
+         * 本例中
+         * 2*(i+1)<=12
+         * 0 <= i <= 12/2 - 1
+         *
+         * */
+        printNodeValue(list.get(0));
+        for (int parentNodeIndex = 0; parentNodeIndex <= arr.length / 2 - 1; parentNodeIndex++) {
+            if ((2 * parentNodeIndex + 1) < arr.length && list.get(2 * parentNodeIndex + 1) != null) {
+                list.get(parentNodeIndex).left = list.get(2 * parentNodeIndex + 1);
+                printNodeValue(list.get(parentNodeIndex).left);
+            }
+            if ((2 * parentNodeIndex + 2) < arr.length && list.get(2 * parentNodeIndex + 2) != null) {
+                list.get(parentNodeIndex).right = list.get(2 * parentNodeIndex + 2);
+                printNodeValue(list.get(parentNodeIndex).right);
+            }
         }
 
-        for (int parentNodeIndex = 0; parentNodeIndex < array.length / 2 - 1; parentNodeIndex++) {
+        return list;
+
+    }
+    /**
+     * 把数组变成二叉树
+     */
+    public static ArrayList<Node> array2Tree0() {
+        int[] arr = array.clone();
+        ArrayList<Node> list = new ArrayList<Node>();
+        for (int i = 0; i < arr.length; i++) {
+            list.add(new Node(arr[i]));
+        }
+        //以上，构造各个节点
+        /**
+         * 树上面。第i个元素的：
+         * 左孩子，在数组中的序号是2*i+1
+         * 右孩子，在数组中的序号是2*i+2
+         * 所以
+         * 2*i+2<=length
+         * 即
+         * 2*(i+1)<=length
+         * 0<= i <= length/2 - 1
+         * 本例中
+         * 2*(i+1)<=12
+         * 0 <= i <= 12/2 - 1
+         *
+         * */
+        for (int parentNodeIndex = 0; parentNodeIndex < arr.length / 2 - 1; parentNodeIndex++) {
             if (list.get(2 * parentNodeIndex + 1) != null) {
                 list.get(parentNodeIndex).left = list.get(2 * parentNodeIndex + 1);
             }
@@ -48,17 +104,25 @@ public class Tree {
                 list.get(parentNodeIndex).right = list.get(2 * parentNodeIndex + 2);
             }
         }
-        //the last parentNode
-        int lastParentNodeIndex = array.length / 2 - 1;
+        //the last parentNode，最后一个根节点可能没有右节点
+        //为什么单独拿出来？，怕OutofRangeException……加个判断不就完了……
+        int lastParentNodeIndex = arr.length / 2 - 1;
+        /**
+         * 树上面。第i个元素的：
+         * 左孩子，在数组中的序号是2*i+1
+         * 右孩子，在数组中的序号是2*i+2
+         * */
+        //左节点
         if (list.get(lastParentNodeIndex * 2 + 1) != null) {
             list.get(lastParentNodeIndex).left = list.get(lastParentNodeIndex * 2 + 1);
         }
-        if (array.length % 2 != 0) {
+        //数组长度为奇数，才有右节点
+        if (arr.length % 2 != 0) {
             if (list.get(lastParentNodeIndex * 2 + 2) != null) {
                 list.get(lastParentNodeIndex).right = list.get(lastParentNodeIndex * 2 + 2);
             }
         }
-
+        System.out.println("array2Tree0  printNodeValue-->");
         return list;
 
     }
