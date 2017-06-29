@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -103,5 +104,7 @@ public class OtherTest {
        System.out.println(TAG+"i8=i9   " + (i8==i9));
        System.out.println(TAG+"i9=i10   " + (i10==i9));
    }
-
+   public void testApi(){
+       Queue queue;
+   }
 }

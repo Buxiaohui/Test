@@ -28,11 +28,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".command.CommandActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <service
             android:name=".ipc.IpcTestService"
             android:process="bxh.test.ipc"></service>

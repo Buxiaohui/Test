@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.bxh.sayhello.dynamic.DynamicTest;
 import com.example.bxh.sayhello.ipc.IpcTestService;
-import com.example.bxh.sayhello.otheralgorithms.TestAlgorithms;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
 import com.example.bxh.sayhello.sometest.ChildClass;
@@ -23,8 +22,6 @@ import com.example.bxh.sayhello.sometest.Person;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
 import com.example.bxh.sayhello.sometest.WebViewTest;
-import com.example.bxh.sayhello.sort.Sort;
-import com.example.bxh.sayhello.tree.MinHeap;
 
 import java.net.URL;
 
@@ -41,7 +38,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
-        MinHeap.test();
     }
 
     private void testIpc() {
@@ -67,14 +63,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void testFibonacci() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("fibonacci i=" + i + "--value=" + TestAlgorithms.fibonacci(i));
-            System.out.println("fibonacci02 i=" + i + "--value=" + TestAlgorithms.fibonacci02(i));
-        }
-
-    }
-
     private void testClassInit() {
         System.out.println("classTest -----我是start分割线----");
         //new BaseClass();
@@ -96,28 +84,6 @@ public class MainActivity extends Activity {
 
     private void testDynamic() {
         new DynamicTest().test();
-    }
-    private void testAlgorithms() {
-        double result = TestAlgorithms.test02(3);
-        System.out.println("TestAlgorithms-----result=" + result);
-    }
-
-    private void test() {
-        int[][] array = new int[30][40];
-        array[0][0] = 0;
-        for (int i = 0; i < array.length; i++) {
-            int start = array[0][0] + i;
-            for (int z = 0; z < array[0].length; z++) {
-                array[i][z] = start + z;
-                String out = array[i][z] < 10 ? array[i][z] + " ," : array[i][z] + ",";
-                System.out.print(out);
-                if (z == array[0].length - 1) {
-                    System.out.println();
-                }
-            }
-        }
-        boolean x0 = TestAlgorithms.isInside01(37, array);
-        boolean x1 = TestAlgorithms.isInside02(37, array);
     }
 
     private void testClone() {
@@ -178,10 +144,6 @@ public class MainActivity extends Activity {
                 view.setVisibility(View.GONE);
             }
         }
-    }
-
-    void testMap() {
-        new TestAlgorithms.TestMap().test();
     }
 
 }

@@ -1,1 +1,1 @@
-include ':app', ':DesignPattern', ':GradleTest'
+include ':app', ':DesignPattern', ':GradleTest', ':algorithms'
