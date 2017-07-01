@@ -1,7 +1,11 @@
 package com.example.bxh.sayhello.genericity;
 
+import android.app.Activity;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by buxiaohui on 6/19/17.
@@ -55,7 +59,35 @@ public class GenericityTestClient {
         //List<?> list3 = new ArrayList();
         //list3.add(11);   //error
         //list3.add("string11"); //error
-    }
 
+        /************************************/
+        testListGenericity();
+    }
+    /**
+     *  List<String> list = new ArrayList<String>(); 中如何存放一个activity对象
+     * */
+    public static void testListGenericity() {
+        List<String> list = new ArrayList<String>();
+        list.add("0000000");
+        list.add("1111111");
+        list.add("2222222");
+        Activity activityA = new Activity();
+        Activity activityB = new Activity();
+        Activity activityC = new Activity();
+        ((List)list).add(activityA);
+        try {
+            Method methodAdd1 = list.getClass().getMethod("add",Object.class);
+            methodAdd1.invoke(list,activityB);
+            //Method methodAdd2 = list.getClass().getMethod("add",Class<?>);
+            //methodAdd2.invoke(list,activityC);
+
+            for (int i = 0; i < list.size(); i++) {
+                //System.out.printf("testListGenericity->"+list.get(i));
+            }
+        }catch (Exception e){
+
+        }
+
+    }
 
 }

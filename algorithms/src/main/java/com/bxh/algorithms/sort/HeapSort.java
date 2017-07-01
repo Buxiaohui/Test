@@ -2,6 +2,8 @@ package com.bxh.algorithms.sort;
 
 import android.util.Log;
 
+import java.util.Arrays;
+
 /**
  * Created by bxh on 3/25/17.
  */
@@ -15,6 +17,7 @@ public class HeapSort {
     public static void sort(Comparable[] data) {
         // 构建最大堆
         buildMaxHeap(data);
+        System.out.println(TAG+"--->"+Arrays.toString(data));
         //打印数据
         printArray(data);
         // 循环，每次把根节点和最后一个节点调换位置

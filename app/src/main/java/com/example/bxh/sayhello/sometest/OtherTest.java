@@ -73,7 +73,7 @@ public class OtherTest {
         }
         @SuppressWarnings("unchecked") int result =  a[index];
         int[]b = Arrays.copyOf(a,index);
-        Log.i(TAG,"copy i = "+index+"--b="+new Gson().toJson(b));
+        Log.i(TAG,"ObjectCloneTestClient i = "+index+"--b="+new Gson().toJson(b));
     }
 
 

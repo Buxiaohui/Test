@@ -2,10 +2,12 @@ package com.example.bxh.sayhello.color;
 
 import android.animation.ArgbEvaluator;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+//import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -74,5 +76,32 @@ public class ColorActivity extends Activity {
         textView2 = (TextView) findViewById(R.id.text2);
         handler.sendEmptyMessageDelayed(0, 0);
     }
+
+    /*private void paletteTest(){
+        Bitmap bitmap = null;
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                //1.活力颜色
+                Palette.Swatch a = palette.getVibrantSwatch();
+                //2.亮的活力颜色
+                Palette.Swatch b=palette.getLightVibrantSwatch();
+                //3.暗的活力颜色
+                Palette.Swatch c = palette.getDarkVibrantSwatch();
+                //4.柔色
+                Palette.Swatch d = palette.getMutedSwatch();
+                //5.亮的柔色
+                Palette.Swatch e = palette.getLightMutedSwatch();
+                //6.暗的柔色
+                Palette.Swatch f = palette.getDarkMutedSwatch();
+                f.getRgb(); //rgb颜色
+                f.getTitleTextColor();//文本颜色
+
+                //返回float[]，可以进行修改，后使用ColorUtils工具类进行转换
+                f.getHsl();
+                f.getBodyTextColor();//和文本颜色一样
+            }
+        });
+    }*/
 
 }

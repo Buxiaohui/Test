@@ -12,11 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.dynamic.DynamicTest;
+import com.example.bxh.sayhello.genericity.GenericityTestClient;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
 import com.example.bxh.sayhello.sometest.ChildClass;
 import com.example.bxh.sayhello.sometest.EnclosingClass;
+import com.example.bxh.sayhello.sometest.ObjectCloneTestClient;
 import com.example.bxh.sayhello.sometest.OtherTest;
 import com.example.bxh.sayhello.sometest.Person;
 import com.example.bxh.sayhello.sometest.ThreadTest;
@@ -38,6 +40,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InjectUtils.autoInjectAllField(this);
+        ObjectCloneTestClient.test();
     }
 
     private void testIpc() {
