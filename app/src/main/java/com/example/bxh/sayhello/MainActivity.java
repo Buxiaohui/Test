@@ -21,6 +21,7 @@ import com.example.bxh.sayhello.sometest.EnclosingClass;
 import com.example.bxh.sayhello.sometest.ObjectCloneTestClient;
 import com.example.bxh.sayhello.sometest.OtherTest;
 import com.example.bxh.sayhello.sometest.Person;
+import com.example.bxh.sayhello.sometest.StringTest;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
 import com.example.bxh.sayhello.sometest.WebViewTest;
@@ -39,8 +40,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startActivity(new Intent(""),new Bundle());
         InjectUtils.autoInjectAllField(this);
-        ObjectCloneTestClient.test();
+        //ObjectCloneTestClient.test();
+        StringTest.testString();
     }
 
     private void testIpc() {

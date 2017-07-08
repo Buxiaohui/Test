@@ -25,12 +25,13 @@ public class HeapSort {
             Comparable tmp = data[0];
             data[0] = data[i - 1];
             data[i - 1] = tmp;
-
             // 堆的长度减少1，排除置换到最后位置的根节点
             maxHeapify(data, 1, i - 1);
         }
     }
-
+    private void t(){
+        //wait();
+    }
     // 根据输入数组构建一个最大堆
     private static void buildMaxHeap(Comparable[] data) {
         for (int i = data.length / 2; i > 0; i--) {

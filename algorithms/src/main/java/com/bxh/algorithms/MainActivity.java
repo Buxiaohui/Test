@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bxh.algorithms.OtherAlgorithms.StringTest;
 import com.bxh.algorithms.sort.HeapSort;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        HeapSort.sortTest();
+        //HeapSort.sortTest();
+        StringTest.test();
     }
 
     @Override
