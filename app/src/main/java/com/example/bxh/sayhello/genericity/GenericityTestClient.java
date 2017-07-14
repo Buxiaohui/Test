@@ -82,7 +82,9 @@ public class GenericityTestClient {
         genericityTest.setList3(list3);
         //finally print
         genericityTest.printList();
-
+        /**
+         * attention！！
+         * */
         //List<?> list3 = new ArrayList();
         //list3.add(11);   //error
         //list3.add("string11"); //error
