@@ -1,7 +1,10 @@
 package com.example.bxh.sayhello;
 
+import android.content.Context;
+import android.os.Looper;
 import android.util.Log;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -20,5 +23,14 @@ public class Utils {
             stringBuilder.append("("+key).append(",").append(val+")").append(";");
         }
         Log.i(tag,stringBuilder.toString());
+    }
+
+    public static String getDefaultCachePath(Context context) {
+        File file = context.getExternalCacheDir();
+        return file != null ? file.getAbsolutePath() : null;
+    }
+
+    public static boolean isOnMainThread() {
+        return Looper.myLooper() == Looper.getMainLooper();
     }
 }

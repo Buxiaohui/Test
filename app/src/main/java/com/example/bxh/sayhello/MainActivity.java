@@ -3,7 +3,9 @@ package com.example.bxh.sayhello;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -12,20 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.dynamic.DynamicTest;
-import com.example.bxh.sayhello.genericity.GenericityTestClient;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
 import com.example.bxh.sayhello.sometest.ChildClass;
 import com.example.bxh.sayhello.sometest.EnclosingClass;
-import com.example.bxh.sayhello.sometest.ObjectCloneTestClient;
 import com.example.bxh.sayhello.sometest.OtherTest;
 import com.example.bxh.sayhello.sometest.Person;
-import com.example.bxh.sayhello.sometest.StringTest;
 import com.example.bxh.sayhello.sometest.ThreadTest;
 import com.example.bxh.sayhello.sometest.ThreadlocalTest;
 import com.example.bxh.sayhello.sometest.WebViewTest;
 
+import java.io.File;
 import java.net.URL;
 
 public class MainActivity extends Activity {
@@ -40,12 +40,15 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(""),new Bundle());
         InjectUtils.autoInjectAllField(this);
         //ObjectCloneTestClient.test();
-        StringTest.testString();
+        //StringTest.testString();
+        //testCapture();
+        testRxJava();
     }
-
+    private void testRxJava(){
+        RxJavaTest.test();
+    }
     private void testIpc() {
         Intent intent = new Intent(this, IpcTestService.class);
         intent.putExtra("args", 1);
@@ -131,6 +134,26 @@ public class MainActivity extends Activity {
             }
         };
         mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
+    }
+    private void testCapture(){
+        mTextView2.setText("testCapture");
+        mTextView2.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        mTextView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                String path = Utils.getDefaultCachePath(v.getContext());
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path, "haha")));
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("AAAAA","requestCode="+requestCode);
+        Log.i("AAAAA","resultCode="+resultCode);
     }
 
     private void testThread() {

@@ -57,6 +57,8 @@ public class StringTest {
         //假设输入为正整数，使用递归逆序输出其String
         String result = new StringTest().getChar(12345);
         Log.i(TAG, "result=" + result);
+        String result1 = new StringTest().delRepeatCahr();
+        Log.i(TAG, "result1=" + result1);
         //other
     }
 
@@ -69,5 +71,21 @@ public class StringTest {
         }
         int x = a % 10;
         return x + getChar(a / 10);
+    }
+
+    /**
+     * "123345566667"->"1234567"
+     * */
+    private String delRepeatCahr(){
+        String res = "123345566667";
+        int index = 0;
+        String result = "";
+        while (index < res.length()){
+            if(index == 0 || res.charAt(index)!=res.charAt(index-1)){
+                result = result+res.charAt(index);
+            }
+            index++;
+        }
+        return result;
     }
 }

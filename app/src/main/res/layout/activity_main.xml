@@ -33,7 +33,7 @@
         android:layout_height="100dp"
         android:text="Hello World!"
         android:textIsSelectable="true"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <Switch
         android:id="@+id/sw"
