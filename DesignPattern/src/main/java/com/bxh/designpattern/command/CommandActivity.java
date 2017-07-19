@@ -117,6 +117,7 @@ public class CommandActivity extends Activity implements View.OnClickListener {
                 mDrawSurfaceView.isDrawing = true;
                 btRedo.setEnabled(false);
                 btUndo.setEnabled(true);
+                new Integer(2);
             }
             return true;
         }
