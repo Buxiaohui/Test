@@ -17,6 +17,7 @@ import com.example.bxh.sayhello.dynamic.DynamicTest;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
+import com.example.bxh.sayhello.concurrency.LockTestClient;
 import com.example.bxh.sayhello.sometest.ChildClass;
 import com.example.bxh.sayhello.sometest.EnclosingClass;
 import com.example.bxh.sayhello.sometest.OtherTest;
@@ -44,7 +45,15 @@ public class MainActivity extends Activity {
         //ObjectCloneTestClient.test();
         //StringTest.testString();
         //testCapture();
-        testRxJava();
+        //testRxJava();
+//        Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+//            @Override
+//            public void doFrame(long frameTimeNanos) {
+//                Log.i(TAG,"frameTimeNanos="+frameTimeNanos);
+//            }
+//        });
+
+        LockTestClient.test();
     }
     private void testRxJava(){
         RxJavaTest.test();

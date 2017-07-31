@@ -25,7 +25,7 @@ import static com.example.bxh.sayhello.Utils.isOnMainThread;
  */
 
 public class RxJavaTest {
-    private final static Observable.Transformer schedulersTransformer = new Observable.Transformer() {
+    private final static Observable.Transformer schedulersTransformer1 = new Observable.Transformer() {
         @Override
         public Object call(Object observable) {
             return ((Observable) observable).subscribeOn(Schedulers.newThread())
