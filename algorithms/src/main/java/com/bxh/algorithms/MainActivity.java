@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.bxh.algorithms.OtherAlgorithms.BFS;
 import com.bxh.algorithms.OtherAlgorithms.Cell;
+import com.bxh.algorithms.OtherAlgorithms.Dijkstra;
 import com.bxh.algorithms.OtherAlgorithms.StringTest;
 import com.bxh.algorithms.sort.HeapSort;
 
@@ -33,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
         });
         //HeapSort.sortTest();
         //StringTest.test();
-        Cell.getCellCount();
+        //Cell.getCellCount();
         //new BFS().test();
+        Dijkstra.main();
     }
 
     @Override
