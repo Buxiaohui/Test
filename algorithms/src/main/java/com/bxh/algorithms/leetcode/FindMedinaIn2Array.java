@@ -17,12 +17,14 @@ public class FindMedinaIn2Array {
      * http://blog.csdn.net/xuyze/article/details/45198757
      * 也可以参考分析：
      * www.cnblogs.com/ganganloveu/p/4180523.html
+     * 或者
+     * http://www.acmerblog.com/median-of-two-sorted-arrays-5967.html
      */
 
 
     public static void test() {
-        int[] a = {1, 2, 3, 4, 5, 6, 7, 9};
-        int[] b = {1, 2, 4, 7, 9, 10};
+        int[] a = {5, 6, 7, 8,9,10,11};
+        int[] b = {1, 2, 3,4 };
         double d = Solution1.findMedianSortedArrays(a, b);
         System.out.println(TAG + "--d-->" + d);
     }
@@ -41,6 +43,7 @@ public class FindMedinaIn2Array {
         }
 
         public static double findNumK(int[] nums1, int n1, int[] nums2, int n2, int k) {
+            System.out.println(TAG + "--findNumK--k-->" + k);
             if (n1 > n2) {//始终把长度较小的放在前面
                 return findNumK(nums2, n2, nums1, n1, k);
             }
