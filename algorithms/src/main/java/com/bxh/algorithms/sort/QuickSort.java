@@ -50,6 +50,7 @@ public class QuickSort {
     public void quick_sort1(int[] a, int l, int r) {
         if (l < r) {
             int i = AdjustArray(a, l, r);//先成挖坑填数法调整s[]
+            System.out.println("quick_sort1 i=" + Arrays.toString(a));
             //i 的左侧 < a[i] ,右侧>a[i]
             //继续对左右进行快排
             quick_sort1(a, l, i - 1); // 递归调用
@@ -57,5 +58,46 @@ public class QuickSort {
         }
         System.out.println("quick_sort1=" + Arrays.toString(a));
     }
+    public void quick_sort2(int[] a, int l, int r) {
+        if (l < r) {
+            int i = quickPartition(a, l, r);//先成挖坑填数法调整s[]
+            System.out.println("quick_sort2 i=" + Arrays.toString(a));
+            //i 的左侧 < a[i] ,右侧>a[i]
+            //继续对左右进行快排
+            quick_sort2(a, l, i - 1); // 递归调用
+            quick_sort2(a, i + 1, r);
+        }
+        System.out.println("quick_sort2=" + Arrays.toString(a));
+    }
+    public int quickPartition(int[] a,int low,int high){
+        int pivot = a[high];
+        int i = low-1;
+        for (int j = low; j < high; j++) {
+            if(a[j] <= pivot){
+                i++;
+                swap(a,i,j);
+            }
+        }
+        swap(a,i+1,high);
+        System.out.println("quickPartition=" + Arrays.toString(a));
+        return i+1;
+    }
+    public void swap(int[] a,int i,int j){
+        if(a == null || i < 0 || j > a.length-1){
+            return;
+        }
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+    public void quickSortTest(){
+        int[] arr = {4,6,2,8,0,34,12,76,3};
+        quick_sort1(arr.clone(),0,arr.length-1);
+        quick_sort2(arr.clone(),0,arr.length-1);
+    }
 
+    public static void test(){
+        QuickSort q =  new QuickSort();
+        q.quickSortTest();
+    }
 }

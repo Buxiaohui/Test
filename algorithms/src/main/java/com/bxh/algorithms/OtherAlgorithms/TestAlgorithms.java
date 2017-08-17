@@ -423,18 +423,6 @@ public class TestAlgorithms {
 
     }
 
-    /*单链表翻转*/
-    public static Node fanzhuan(Node node) {
-        if (node == null) {
-            return null;
-        } else if (node.next == null) {
-            return node;
-        } else {
-            node.next.next = node;
-            return fanzhuan(node.next);
-        }
-    }
-
     /**
      * 在二维数组中查找某个数是否存在
      * 次二维数组横向与纵向都是单调递增的

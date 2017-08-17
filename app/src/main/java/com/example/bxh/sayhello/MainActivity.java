@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bxh.sayhello.Optimization.ClipRectActivity;
 import com.example.bxh.sayhello.dynamic.DynamicTest;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.inject.InjectUtils;
@@ -53,7 +54,8 @@ public class MainActivity extends Activity {
 //            }
 //        });
 
-        LockTestClient.test();
+        //LockTestClient.test();
+        this.startActivity(new Intent(this,ClipRectActivity.class));
     }
     private void testRxJava(){
         RxJavaTest.test();
@@ -142,6 +144,7 @@ public class MainActivity extends Activity {
                 return drawable;
             }
         };
+        mTextView2.setSpannableFactory();
         mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
     }
     private void testCapture(){

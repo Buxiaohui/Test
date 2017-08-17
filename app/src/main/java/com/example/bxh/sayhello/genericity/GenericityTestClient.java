@@ -53,6 +53,10 @@ public class GenericityTestClient {
     public static <T> T getGenericity2(T t) {
         return t;
     }
+    //error
+    //public static T ret(T t){
+    //    return t;
+    //}
 
     public static void getGenericityTest() {
         GenericityChildA genericityChildA = getGenericity1(new GenericityChildA());

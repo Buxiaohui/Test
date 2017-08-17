@@ -55,9 +55,13 @@ public class StringTest {
 
     public static void test() {
         //假设输入为正整数，使用递归逆序输出其String
-        String result = new StringTest().getChar(12345);
+        StringTest s = new StringTest();
+        String result = s.getChar(12345);
         Log.i(TAG, "result=" + result);
-        //other
+
+        //for (int i = -100; i < 100; i++) {
+            System.out.println("  fin is -> " + s.atoi("2147483648"));
+        //}
     }
 
     /**
@@ -132,4 +136,38 @@ public class StringTest {
 
     }
 
+    public int atoi(String str) {
+        if (str == null || str.length() == 0) {
+            return 0;
+        }
+        //str = str.replace(" ", "");//去掉空格 根据题意是不需要
+        boolean isPositive = true;
+        while(str.startsWith(" ")){
+            str = str.replaceFirst(" ","");
+        }
+        if (str.startsWith("-")) {
+            isPositive = false;
+            str = str.replace("-", "");//去掉符号
+        }
+        if (str.startsWith("+")) {
+            isPositive = true;
+            str = str.replace("+", "");//去掉符号
+        }
+
+        int finVal = 0;
+        //boolean isValid = true;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c >= '0' && c <= '9') {
+                finVal = finVal * 10 + c - '0';
+            }else {
+                break;
+            }
+        }
+        finVal = finVal * (isPositive ? 1 : -1);
+        if(finVal>=Integer.MAX_VALUE){
+            return 0;
+        }
+        return finVal;
+    }
 }
