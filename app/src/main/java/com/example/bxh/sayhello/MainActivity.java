@@ -144,7 +144,7 @@ public class MainActivity extends Activity {
                 return drawable;
             }
         };
-        mTextView2.setSpannableFactory();
+        //mTextView2.setSpannableFactory();
         mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
     }
     private void testCapture(){

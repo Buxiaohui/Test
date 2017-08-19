@@ -663,4 +663,26 @@ public class TestAlgorithms {
         }
 
     }
+
+    /**
+     * @see #findlog2N(int)
+     * */
+    public static void findlog2NTest(){
+        for (int i = 1; i < 129; i++) {
+            findlog2N(i);
+        }
+    }
+
+    /**
+     * 给一个正整数N，算出不超过log2N的最大数
+     * @see #findlog2NTest()
+     * */
+    public static void findlog2N(int n){
+        int x = 1;
+        int i = 1;
+        while ((x<<i) <= n){
+            i++;
+        }
+        System.out.println(TAG+" n="+n+"  final i="+(i-1));
+    }
 }

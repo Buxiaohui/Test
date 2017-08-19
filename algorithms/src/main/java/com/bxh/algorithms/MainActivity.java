@@ -14,9 +14,11 @@ import com.bxh.algorithms.OtherAlgorithms.Cell;
 import com.bxh.algorithms.OtherAlgorithms.Dijkstra;
 import com.bxh.algorithms.OtherAlgorithms.FindSameElements;
 import com.bxh.algorithms.OtherAlgorithms.StringTest;
+import com.bxh.algorithms.OtherAlgorithms.TestAlgorithms;
 import com.bxh.algorithms.dynamic.ThiefTest;
 import com.bxh.algorithms.leetcode.FindMedinaIn2Array;
 import com.bxh.algorithms.leetcode.LeetCode2;
+import com.bxh.algorithms.leetcode.LeetCode3;
 import com.bxh.algorithms.node.NodeAlgorithms;
 import com.bxh.algorithms.sort.HeapSort;
 import com.bxh.algorithms.sort.QuickSort;
@@ -49,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         //StringTest.test();
         //ThiefTest.test();
         //FindMedinaIn2Array.test();
-        LeetCode2.test();
+        //LeetCode2.test();
+        //LeetCode3.test();
+        TestAlgorithms.findlog2NTest();
     }
 
     @Override

@@ -19,6 +19,22 @@ public class DynamicTest {
         }
     }
 
+    public static void printIntArr(int[][] dp2, String tag) {
+        if (dp2 == null || dp2.length < 1) {
+            System.out.print("dp is null or empty !!!");
+            return;
+        }
+        int len = dp2.length;
+        int columnNum = dp2[0].length;
+        System.out.println(tag + " --tag!!!");
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < columnNum; j++) {
+                System.out.print(dp2[i][j] + ",");
+            }
+            System.out.println(" ");
+        }
+    }
+
     public void test() {
         //案例0
         new Demo0().test();
@@ -241,7 +257,7 @@ public class DynamicTest {
                     dp[0] = 1;
                     max = dp[0];
                 } else {
-                    int maxOneIndex=0;
+                    int maxOneIndex = 0;
                     for (int j = 0; j < i; j++) {
                         if (dp[j] >= max) {
                             max = dp[j];
@@ -434,5 +450,53 @@ public class DynamicTest {
         }
 
     }
+
+
+    /**
+     * Given a string s, partition s such that every substring of the partition is a palindrome.
+     * Return the minimum cuts needed for a palindrome partitioning of s.
+     * For example, given s ="aab",
+     * Return1since the palindrome partitioning["aa","b"]could be produced using 1 cut.
+     * <p>
+     * 问题：求字符串的最小分割数，使得分割后的子串都是回文串。
+     * http://blog.csdn.net/ljiabin/article/details/41173417
+     */
+    public class demo7 {
+        String[] res = {"abc", "aabc", "abccba", "abcba"};
+
+        public int cutStrToPalindrome(String s) {
+            if (s == null || s.length() < 2) return 0;
+
+            int n = s.length();
+            boolean[][] isPalin = new boolean[n][n]; // isPalin[i][j]: is palindrome from i to j
+            int[] cutNum = new int[n]; // cutNum[i]: cuts numbers from i to end
+
+            for (int i = n - 1; i >= 0; i--) {
+                cutNum[i] = n - 1 - i;
+
+                for (int j = i; j < n; j++) {
+                    if (s.charAt(i) == s.charAt(j) && (j - i < 2 || isPalin[i + 1][j - 1])) {
+                        isPalin[i][j] = true;
+
+                        if (j == n - 1) {
+                            cutNum[i] = 0; // s[i...n-1] is palindrome, no need cut
+                        } else {
+                            cutNum[i] = Math.min(cutNum[i], cutNum[j + 1] + 1);
+                        }
+                    }
+                }
+            }
+
+            return cutNum[0];
+        }
+
+        public void test() {
+            for (int i = 0; i < res.length; i++) {
+                cutStrToPalindrome(res[i]);
+            }
+
+        }
+    }
+
 
 }
