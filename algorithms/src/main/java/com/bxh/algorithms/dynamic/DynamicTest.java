@@ -460,6 +460,7 @@ public class DynamicTest {
      * <p>
      * 问题：求字符串的最小分割数，使得分割后的子串都是回文串。
      * http://blog.csdn.net/ljiabin/article/details/41173417
+     * https://www.nowcoder.com/questionTerminal/1025ffc2939547e39e8a38a955de1dd3
      */
     public class demo7 {
         String[] res = {"abc", "aabc", "abccba", "abcba"};

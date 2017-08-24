@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bxh.sayhello.Optimization.ClipRectActivity;
+import com.example.bxh.sayhello.data.DataTest;
 import com.example.bxh.sayhello.dynamic.DynamicTest;
+import com.example.bxh.sayhello.enumtest.EnumTest;
 import com.example.bxh.sayhello.ipc.IpcTestService;
 import com.example.bxh.sayhello.inject.InjectUtils;
 import com.example.bxh.sayhello.inject.ViewInject;
@@ -55,7 +57,9 @@ public class MainActivity extends Activity {
 //        });
 
         //LockTestClient.test();
-        this.startActivity(new Intent(this,ClipRectActivity.class));
+        //this.startActivity(new Intent(this,ClipRectActivity.class));
+        //EnumTest.test();
+        DataTest.test();
     }
     private void testRxJava(){
         RxJavaTest.test();
@@ -145,7 +149,8 @@ public class MainActivity extends Activity {
             }
         };
         //mTextView2.setSpannableFactory();
-        mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
+        //mTextView2.setText(Html.fromHtml(sText, imageGetter, null));
+
     }
     private void testCapture(){
         mTextView2.setText("testCapture");
